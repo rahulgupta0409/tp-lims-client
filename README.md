@@ -1,2 +1,2 @@
-#TP-LIMS-ARCHITECTURE
+#Tp-LIMS-Client
 
