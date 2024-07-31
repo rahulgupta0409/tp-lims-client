@@ -1,0 +1,30 @@
+.card-container {
+  height: calc(100vh - 60px);
+  margin-top: 70px;
+  margin-right: 40px;
+  margin-left: 40px;
+  margin-bottom: 20px;
+  //   height: 100vh;
+  //   display: flex;
+  justify-content: center;
+  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Adjust minmax value as needed */
+  gap: 16px;
+
+  .text-center {
+    margin: 20px;
+  }
+}
+.alert-cont {
+  justify-content: center;
+  width: 100%;
+  height: 2px;
+  margin-top: 20px;
+  margin-right: 100px;
+  margin-left: 500px;
+  margin-bottom: 2px;
+}
