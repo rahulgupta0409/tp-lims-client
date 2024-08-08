@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  background-color: #6c7379;
 
   .org-form {
     display: flex;
@@ -13,6 +13,8 @@
     padding: 50px 50px;
     box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
     border-radius: 3px;
+    background-color: #e8eff5;
+    border-radius: 10px;
     .h2 {
       width: 100%;
       position: relative;
@@ -51,10 +53,11 @@
     }
 
     .input {
-      width: 300px;
+      width: 320px;
+      background-color: white;
       height: 32px;
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 8px 12px;
+      border-radius: 8px;
       border: 0.1px solid lightgrey;
     }
     .submin-org {

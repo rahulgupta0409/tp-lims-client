@@ -1,0 +1,42 @@
+.minortest-main-page-container {
+  height: calc(100vh - 60px);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .stack-container {
+    color: black;
+    .item {
+      height: 60px;
+      width: 60vw;
+
+      &:hover {
+        color: yellowgreen;
+        background-color: antiquewhite;
+        cursor: pointer;
+      }
+
+      .item-entry-container {
+        display: flex;
+        justify-content: space-between;
+
+        .item-testname-container {
+          padding: 8px;
+          margin-left: 30px;
+          font-size: 2vw;
+          font-family: "Gill Sans", sans-serif;
+          font-weight: bold;
+          color: black;
+        }
+        .item-testprice-container {
+          padding: 8px;
+          margin-right: 30px;
+          font-size: 2vw;
+          font-family: "Gill Sans", sans-serif;
+          color: black;
+        }
+      }
+    }
+  }
+}
