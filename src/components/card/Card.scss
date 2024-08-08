@@ -1,19 +1,10 @@
 .card-container {
-  height: calc(100vh - 60px);
-  margin-top: 70px;
-  margin-right: 40px;
-  margin-left: 40px;
-  margin-bottom: 20px;
-  //   height: 100vh;
-  //   display: flex;
-  justify-content: center;
-  align-items: center;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fit,
-    minmax(300px, 1fr)
-  ); /* Adjust minmax value as needed */
-  gap: 16px;
+  height: 250px;
+  width: 400px;
+  margin: 10px;
+  position: relative;
+  display: flex;
+  flex-flow: column;
 
   .text-center {
     margin: 20px;

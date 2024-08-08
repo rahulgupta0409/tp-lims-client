@@ -1,0 +1,10 @@
+.minortest-container {
+  //   display: grid;
+  //   grid-template-columns: repeat(4, auto);
+  display: flex;
+  flex-wrap: wrap;
+
+  overflow: auto;
+  width: 100%;
+  position: relative;
+}
