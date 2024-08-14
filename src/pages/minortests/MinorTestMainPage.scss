@@ -1,9 +1,9 @@
 .minortest-main-page-container {
-  height: calc(100vh - 60px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 15px;
 
   .stack-container {
     color: black;

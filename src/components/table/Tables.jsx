@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import { Button, styled } from '@mui/material';
+import { Button, IconButton, styled } from '@mui/material';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,9 +30,10 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 
-export default function Tables({rows=[], columns=[]}) {
-// const 
+export default function Tables({rows=[], columns=[], actions= [], onDoubleClick}) {
+
   const [page, setPage] = React.useState(0);
+  const [selectedRow, setSelectedRow] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleChangePage = (event, newPage) => {
@@ -43,6 +44,15 @@ export default function Tables({rows=[], columns=[]}) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+
+  const onRowClick = (e, row) => {
+    if(e.detail === 2) {
+      setSelectedRow(row);
+      onDoubleClick && onDoubleClick(row);
+    }
+  }
+
+  console.log('selectedRow', selectedRow)
 
   return (
     <Paper sx={{ width: '80%', overflow: 'hidden' }}>
@@ -59,6 +69,7 @@ export default function Tables({rows=[], columns=[]}) {
                   {column.label}
                 </StyledTableCell>
               ))}
+              {actions.length > 0 && <StyledTableCell align="right"></StyledTableCell>}
             </StyledTableRow>
           </TableHead>
           <TableBody>
@@ -66,17 +77,31 @@ export default function Tables({rows=[], columns=[]}) {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover role="checkbox" onClick={(e) => onRowClick(e, row)} tabIndex={-1} key={row.testId} selected={row?.id === selectedRow?.id}>
                     {columns.map((column) => {
                       const value = row[column.id];
+                      // console.log('value',column.id,  value)
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value === "update" ? <Button>{value}</Button>: value}
+                            ? column.format(value) : value}
                         </TableCell>
                       );
                     })}
+                    {actions.length > 0 && (
+                  <TableCell align="right">
+                    {actions.map((action, index) => (
+                      <IconButton
+                        key={index}
+                        variant={action.variant || 'contained'}
+                        color={action.color || 'primary'}
+                        onClick={(e) => {e.preventDefault(); action.onClick(row)}}
+                        style={{ marginLeft: '8px' }}
+                      >
+                        {action.label}
+                      </IconButton>
+                    ))}
+                  </TableCell>)}
                   </TableRow>
                 );
               })}

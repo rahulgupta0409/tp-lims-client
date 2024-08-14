@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./Login.scss";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
+import useFetch from "../../custom-hooks/useFetch";
+import { setCookie } from "../../utils/cookies";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -20,6 +22,24 @@ const Login = () => {
 
   const handleOnClick = async (e) => {
     e.preventDefault();
+
+    // const { data, error, loading } = useFetch(
+    //   "http://localhost:8091/v1/auth/signin",
+    //   "POST",
+    //   {
+    //     userName,
+    //     password,
+    //   }
+    // );
+
+    // if (data != null) {
+    //   localStorage.setItem("token", data.token);
+    //   localStorage.setItem("loginSuccess", "true");
+    //   setUserName("");
+    //   setPassword("");
+    //   navigate("/home");
+    // }
+
     try {
       const response = await fetch("http://localhost:8091/v1/auth/signin", {
         method: "POST",
@@ -41,6 +61,7 @@ const Login = () => {
       if (data?.token) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("loginSuccess", "true");
+        setCookie("refreshToken", data.refreshToken, { expires: 7 });
         setUserName("");
         setPassword("");
         navigate("/home");

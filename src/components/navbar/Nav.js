@@ -29,71 +29,73 @@ function Navbars() {
   };
   return (
     <>
-      <Navbar expand="lg" className="navbar-container">
-        <Container fluid>
-          <Navbar.Brand
-            onClick={() => {
-              if (localStorage.getItem("token")) {
-                return navigate("/home");
-              } else {
-                navigate("/");
-              }
-            }}
-          >
-            <img
-              src={Logo}
-              style={{
-                width: "60px",
-                height: "60px",
-                marginLeft: "10px",
+      <div className="navbar-container">
+        <Navbar expand="lg">
+          <Container fluid>
+            <Navbar.Brand
+              onClick={() => {
+                if (localStorage.getItem("token")) {
+                  return navigate("/home");
+                } else {
+                  navigate("/");
+                }
               }}
-              alt="Logo"
-            />
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
-            <Nav
-              className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: "100px" }}
-              navbarScroll
             >
-              <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
-              <Nav.Link href="#action2">Patients</Nav.Link>
-              <NavDropdown title="Other" id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">All Tests</NavDropdown.Item>
-                <NavDropdown.Item onClick={handleOnClickMinorTest}>
-                  Minor Tests
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item
-                  // href="/organization"
-                  onClick={handleOnClickOrganization}
-                >
-                  Add Organization
-                </NavDropdown.Item>
-              </NavDropdown>
-              {/* <Nav.Link href="#" disabled>
+              <img
+                src={Logo}
+                style={{
+                  width: "60px",
+                  height: "60px",
+                  marginLeft: "10px",
+                }}
+                alt="Logo"
+              />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="navbarScroll" />
+            <Navbar.Collapse id="navbarScroll">
+              <Nav
+                className="me-auto my-2 my-lg-0"
+                style={{ maxHeight: "100px" }}
+                navbarScroll
+              >
+                <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
+                <Nav.Link href="#action2">Patients</Nav.Link>
+                <NavDropdown title="Other" id="navbarScrollingDropdown">
+                  <NavDropdown.Item href="#action3">All Tests</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleOnClickMinorTest}>
+                    Minor Tests
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item
+                    // href="/organization"
+                    onClick={handleOnClickOrganization}
+                  >
+                    Add Organization
+                  </NavDropdown.Item>
+                </NavDropdown>
+                {/* <Nav.Link href="#" disabled>
               Link
             </Nav.Link> */}
-            </Nav>
-            <Form className="d-flex">
-              <Form.Control
+              </Nav>
+              <Form className="d-flex">
+                {/* <Form.Control
                 type="search"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
-              />
+              /> */}
 
-              <Button variant="danger" onClick={handleLogout}>
-                LOGOUT
-              </Button>
-              <div className="account-menu-nav-container">
+                <Button variant="danger" onClick={handleLogout}>
+                  LOGOUT
+                </Button>
+                {/* <div className="account-menu-nav-container">
                 <AccountMenu />
-              </div>
-            </Form>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+              </div> */}
+              </Form>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      </div>
     </>
   );
 }
