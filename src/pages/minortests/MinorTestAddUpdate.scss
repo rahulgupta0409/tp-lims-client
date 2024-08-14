@@ -1,0 +1,56 @@
+.org-form {
+  height: 350px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 30px;
+
+  .row {
+    text-align: left;
+    padding: 15px 0px;
+    display: block;
+    width: 100%;
+  }
+
+  .label {
+    width: max-content;
+    font-size: 13px;
+    font-weight: 600;
+    padding-bottom: 5px;
+    color: black;
+  }
+
+  .input {
+    width: 320px;
+    background-color: white;
+    height: 32px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 0.1px solid lightgrey;
+  }
+  .submin-org {
+    width: 100%;
+    height: 35px;
+    padding: 0px 0px;
+    font-weight: 600;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #99cdfd;
+    color: black;
+  }
+
+  .submin-org:hover {
+    width: 100%;
+    height: 35px;
+    padding: 0px 0px;
+    font-weight: 600;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    background-color: #278be8;
+    color: black;
+  }
+}

@@ -15,6 +15,7 @@ import PatientsEntryForm from "./components/PatientsEntryForm";
 import MultipleSelectChip from "./helpers/Helper";
 import MinorTestMainPage from "./pages/minortests/MinorTestMainPage";
 import Tables from "./components/table/Tables";
+import Majortests from "./pages/majortests/majortests";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -30,7 +31,7 @@ function App() {
           <Route path="/home" element={<Home />}></Route>
           <Route path="/minor" element={<Minortests />}></Route>
           <Route path="/patiententry" element={<PatientsEntryForm />}></Route>
-          <Route path="/helper" element={<MultipleSelectChip />}></Route>
+          <Route path="/helper" element={<Majortests />}></Route>
           <Route path="/minortests" element={<MinorTestMainPage />}></Route>
           <Route path="/table" element={<Tables />}></Route>
           <Route path="*" element={<Navigate to="/" replace />}></Route>
