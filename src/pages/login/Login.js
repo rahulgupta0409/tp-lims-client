@@ -59,9 +59,9 @@ const Login = () => {
       const data = await response.json();
 
       if (data?.token) {
-        localStorage.setItem("token", data.token);
+        localStorage.setItem("token", data.token, { expires: 1 });
         localStorage.setItem("loginSuccess", "true");
-        setCookie("refreshToken", data.refreshToken, { expires: 7 });
+        setCookie("__rT", data.refreshToken, { expires: 7 });
         setUserName("");
         setPassword("");
         navigate("/home");

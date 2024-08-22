@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import "./Organization.scss";
+import React, { useRef, useState } from "react";
 import Navbars from "../../components/navbar/Nav";
 import toast, { Toaster } from "react-hot-toast";
-import { Button } from "react-bootstrap";
-import { Input } from "@mui/material";
-import InputGroupText from "react-bootstrap/esm/InputGroupText";
+import "./Organization.scss";
 
 const Organization = () => {
   const [orgName, setOrgName] = useState("");
   const [orgDetails, setOrgDetails] = useState("");
   const token = localStorage.getItem("token");
+
+  const formRef = useRef(null);
 
   const handleOnChange = (param, value) => {
     if (param === "orgName") {
@@ -20,6 +19,12 @@ const Organization = () => {
     }
   };
 
+  const handleReset = () => {
+    if (formRef.current) {
+      formRef.current.reset();
+    }
+  };
+
   const notify = () =>
     toast.success("Added Successfully!", {
       duration: 4000,
@@ -27,7 +32,7 @@ const Organization = () => {
     });
 
   const handleOnClick = async (e) => {
-    //  e.preventDefault();
+    e.preventDefault();
     try {
       const response = await fetch(
         "http://localhost:8091/v1/organization/addOrganization",
@@ -45,11 +50,11 @@ const Organization = () => {
       );
 
       const data = await response.json();
+      handleReset();
       setOrgName("");
       setOrgDetails("");
       if (data != null) {
         notify();
-        
       }
     } catch (error) {
       console.error("Error during fetch:", error);
@@ -60,9 +65,8 @@ const Organization = () => {
     <div>
       <Navbars />
       <Toaster />
-
       <div className="org-container">
-        <form className="org-form">
+        <form ref={formRef} className="org-form" onSubmit={handleOnClick}>
           <h2 className="h2">ORGANIZATION</h2>
           <div className="row">
             <div className="label">Organization Name</div>
@@ -89,9 +93,13 @@ const Organization = () => {
             />
           </div>
           <div className="row">
-            <Button className="submin-org" onClick={handleOnClick}>
-              SUBMIT
-            </Button>
+            <button
+              className="submin-majortest"
+              type="submit"
+              //onClick={handleOnClick}
+            >
+              ADD ORG
+            </button>
           </div>
         </form>
       </div>

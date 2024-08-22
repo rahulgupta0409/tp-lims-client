@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { Button, IconButton, styled } from '@mui/material';
+import "./Tables.scss";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -56,8 +57,8 @@ export default function Tables({rows=[], columns=[], actions= [], onDoubleClick}
 
   return (
     <Paper sx={{ width: '80%', overflow: 'hidden' }}>
-      <TableContainer sx={{ maxHeight: 375 }} >
-        <Table stickyHeader aria-label="sticky table">
+      <TableContainer sx={{ maxHeight: 350 }} >
+        <Table stickyHeader aria-label="sticky table" className="table-container">
           <TableHead>
             <StyledTableRow>
               {columns.map((column) => (
@@ -77,19 +78,19 @@ export default function Tables({rows=[], columns=[], actions= [], onDoubleClick}
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
-                  <TableRow hover role="checkbox" onClick={(e) => onRowClick(e, row)} tabIndex={-1} key={row.testId} selected={row?.id === selectedRow?.id}>
+                  <TableRow hover role="checkbox" tabIndex={-1} key={row.testId} selected={row?.rowIdx === selectedRow?.rowIdx}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       // console.log('value',column.id,  value)
                       return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell key={column.id} align={column.align} onClick={(e) => onRowClick(e, row)}>
                           {column.format && typeof value === 'number'
                             ? column.format(value) : value}
                         </TableCell>
                       );
                     })}
                     {actions.length > 0 && (
-                  <TableCell align="right">
+                  <TableCell align="right" onClick={null}>
                     {actions.map((action, index) => (
                       <IconButton
                         key={index}
@@ -111,6 +112,7 @@ export default function Tables({rows=[], columns=[], actions= [], onDoubleClick}
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
+        className="table-footer"
         count={rows.length}
         rowsPerPage={rowsPerPage}
         page={page}
