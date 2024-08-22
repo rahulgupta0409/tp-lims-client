@@ -10,6 +10,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import AccountMenu from "../accountmenu/AccountMenu";
 import Logo from "../../images/Tilak_Pathology_PNG_Logo-removebg.png";
+import { removeCookie } from "../../utils/cookies";
 
 function Navbars() {
   const navigate = useNavigate();
@@ -19,13 +20,20 @@ function Navbars() {
   };
   const handleLogout = (e) => {
     e.preventDefault();
+    removeCookie("__rT");
     localStorage.removeItem("token");
+
     navigate("/");
   };
 
   const handleOnClickOrganization = (e) => {
     e.preventDefault();
     navigate("/organization");
+  };
+
+  const handleOnClickMajorTest = (e) => {
+    e.preventDefault();
+    navigate("/helper");
   };
   return (
     <>
@@ -61,7 +69,9 @@ function Navbars() {
                 <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
                 <Nav.Link href="#action2">Patients</Nav.Link>
                 <NavDropdown title="Other" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">All Tests</NavDropdown.Item>
+                  <NavDropdown.Item onClick={handleOnClickMajorTest}>
+                    Major Tests
+                  </NavDropdown.Item>
                   <NavDropdown.Item onClick={handleOnClickMinorTest}>
                     Minor Tests
                   </NavDropdown.Item>

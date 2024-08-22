@@ -1,3 +1,79 @@
+// .majortest-container {
+//   height: calc(100vh - 60px);
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   margin-top: 39px;
+
+//   .majortest-form {
+//     display: flex;
+//     align-items: center;
+//     flex-direction: column;
+//     justify-content: center;
+//     padding: 30px 40px;
+//     box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px;
+//     border-radius: 10px;
+//     background-color: #e8eff5;
+//     width: 90%;
+//     max-width: 500px;
+//     .h2 {
+//       width: 100%;
+//       margin-bottom: 20px;
+//       padding: 10px;
+//       text-align: center !important;
+//       color: #333;
+//       font-size: 24px;
+//       font-weight: bold;
+//     }
+
+//     .row {
+//       text-align: left;
+//       padding: 15px 0;
+//       width: 100%;
+//       display: flex;
+//       flex-direction: column;
+//     }
+//     .label {
+//       font-size: 20px;
+//       font-weight: 600;
+//       margin-bottom: 5px;
+//     }
+
+//     .input {
+//       width: 100%;
+//       height: 45px;
+//       padding: 12px 16px;
+//       border-radius: 6px;
+//       border: 1px solid #ddd;
+//       font-size: 16px;
+//       box-sizing: border-box;
+//     }
+
+//     .custom-input {
+//       padding: 18px;
+//       width: 100%;
+//     }
+//     .submin-majortest {
+//       width: 100%;
+//       height: 45px;
+//       padding: 0;
+//       font-weight: 600;
+//       margin-top: 20px;
+//       border-radius: 6px;
+//       border: none;
+//       cursor: pointer;
+//       background-color: #007bff;
+//       color: #fff;
+//       font-size: 16px;
+//       transition: background-color 0.3s ease;
+
+//       &:hover {
+//         background-color: #0056b3;
+//       }
+//     }
+//   }
+// }
+
 .majortest-container {
   height: calc(100vh - 60px);
   display: flex;
@@ -7,63 +83,88 @@
 
   .majortest-form {
     display: flex;
-    align-items: center;
     flex-direction: column;
-    justify-content: center;
-    padding: 30px 40px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 20px;
-    border-radius: 10px;
+    align-items: center;
+    padding: 40px;
+    border-radius: 12px;
     background-color: #e8eff5;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 500px;
+
     .h2 {
       width: 100%;
-      margin-bottom: 20px;
-      padding: 10px;
-      text-align: center !important;
-      color: #333;
-      font-size: 24px;
-      font-weight: bold;
+      margin-bottom: 24px;
+      padding: 12px;
+      text-align: center;
+      color: #343a40;
+      font-size: 26px;
+      font-weight: 700;
+      background: #e9ecef;
+      border-radius: 8px;
     }
 
     .row {
-      text-align: left;
-      padding: 15px 0;
       width: 100%;
       display: flex;
       flex-direction: column;
+      margin-bottom: 16px;
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
     }
+
     .label {
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 600;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
+      color: #495057;
     }
 
     .input {
       width: 100%;
-      height: 45px;
-      padding: 12px 16px;
-      border-radius: 6px;
-      border: 1px solid #ddd;
+      height: 50px;
+      padding: 14px 18px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
       font-size: 16px;
       box-sizing: border-box;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        border-color: #80bdff;
+        outline: none;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
+      }
     }
+
+    .custom-input {
+      width: 100%;
+      padding: 0; // Reset padding if needed
+    }
+
     .submin-majortest {
       width: 100%;
-      height: 45px;
-      padding: 0;
-      font-weight: 600;
-      margin-top: 20px;
-      border-radius: 6px;
+      height: 50px;
       border: none;
-      cursor: pointer;
+      border-radius: 8px;
       background-color: #007bff;
       color: #fff;
-      font-size: 16px;
-      transition: background-color 0.3s ease;
+      font-size: 18px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      margin-top: 20px;
+      padding: 0 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
       &:hover {
         background-color: #0056b3;
+      }
+
+      &:active {
+        transform: scale(0.98);
       }
     }
   }

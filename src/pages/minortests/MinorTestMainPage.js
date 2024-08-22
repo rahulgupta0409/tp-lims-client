@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Navbars from "../../components/navbar/Nav";
-import "./MinorTestMainPage.scss";
-import Tables from "../../components/table/Tables";
-import { Input } from "antd";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Button, Form, Modal } from "react-bootstrap";
 import { IconButton } from "@mui/material";
 import AddBoxIcon from "@mui/icons-material/AddBox";
-import SearchIcon from "@mui/icons-material/Search";
-import { Form } from "react-bootstrap";
-import MinorTestAddUpdate from "./MinorTestAddUpdate";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Navbars from "../../components/navbar/Nav";
+import Tables from "../../components/table/Tables";
 import { getJwtToken } from "../../utils/token";
+import MinorTestAddUpdate from "./MinorTestAddUpdate";
+import "./MinorTestMainPage.scss";
+import GridExample from "../../components/aggrid/agGrid";
 
 const MinorTestMainPage = () => {
   const [items, setItems] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState("");
   const [selectedRow, setSelectedRow] = useState({});
+  const [searchQuery, setSearchQuery] = useState("");
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const token = localStorage.getItem("token");
-  // const token = getJwtToken;
 
   const createLabTests = async () => {
     try {
+      const token = await getJwtToken().then((v) => v);
       const response = await fetch(
         "http://localhost:8091/v1/minortest/addMinorTest",
         {
@@ -32,8 +29,9 @@ const MinorTestMainPage = () => {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            testName: "RBxscscH",
+            testName: "RIM",
             testPrice: 129.4,
+            minorTestUnit: "nxnxs",
             remarks: "This is a remarks",
           }),
         }
@@ -54,6 +52,7 @@ const MinorTestMainPage = () => {
 
   const deleteLabTest = async (testId) => {
     try {
+      const token = await getJwtToken().then((v) => v);
       const response = await fetch(
         `http://localhost:8091/v1/minortest/deleteMinorLabTestBy/${testId}`,
         {
@@ -85,6 +84,7 @@ const MinorTestMainPage = () => {
 
   const handleUpdateModalOpen = (row) => {
     setShowModal("updateModal");
+    console.log("row", row);
     setSelectedRow(row);
   };
 
@@ -92,6 +92,7 @@ const MinorTestMainPage = () => {
 
   const fetchMinnorLabTests = async () => {
     try {
+      const token = await getJwtToken().then((v) => v);
       const response = await fetch(
         "http://localhost:8091/v1/minortest/getAllMinorTests",
         {
@@ -107,8 +108,8 @@ const MinorTestMainPage = () => {
       }
       const data = await response.json();
       setItems(
-        data.map((dat) => {
-          return { ...dat, buttonDelete: "" };
+        data.map((dat, idx) => {
+          return { ...dat, rowIdx: idx };
         })
       );
     } catch (error) {
@@ -123,6 +124,13 @@ const MinorTestMainPage = () => {
       label: "TEST PRICE",
       minWidth: 170,
       align: "right",
+    },
+    {
+      id: "minorTestUnit",
+      label: "TEST UNIT",
+      minWidth: 170,
+      align: "right",
+      format: (value) => value.toLocaleString("en-US"),
     },
     {
       id: "remarks",
@@ -150,6 +158,11 @@ const MinorTestMainPage = () => {
     },
   ];
 
+  const onSearch = (e) => {
+    const { value } = e.target || e;
+    setSearchQuery(value);
+  };
+
   return (
     <div>
       <Navbars />
@@ -169,10 +182,12 @@ const MinorTestMainPage = () => {
           <div>
             <Form className="d-flex">
               <Form.Control
-                type="search"
+                type="input"
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                value={searchQuery}
+                onChange={onSearch}
               />
             </Form>
           </div>
@@ -209,7 +224,11 @@ const MinorTestMainPage = () => {
         </div>
         <Tables
           columns={columns}
-          rows={items}
+          rows={items.filter((item) =>
+            (item.testName || "")
+              .toLowerCase()
+              .includes(searchQuery.toLowerCase())
+          )}
           actions={actions}
           onDoubleClick={handleUpdateModalOpen}
         />

@@ -1,56 +1,136 @@
+// .org-form {
+//   height: 350px;
+//   display: flex;
+//   align-items: center;
+//   flex-direction: column;
+//   padding: 0 30px;
+
+//   .row {
+//     text-align: left;
+//     padding: 15px 0px;
+//     display: block;
+//     width: 100%;
+//   }
+
+//   .label {
+//     width: max-content;
+//     font-size: 13px;
+//     font-weight: 600;
+//     padding-bottom: 5px;
+//     color: black;
+//   }
+
+//   .input {
+//     width: 320px;
+//     background-color: white;
+//     height: 32px;
+//     padding: 8px 12px;
+//     border-radius: 8px;
+//     border: 0.1px solid lightgrey;
+//   }
+//   .submin-org {
+//     width: 100%;
+//     height: 35px;
+//     padding: 0px 0px;
+//     font-weight: 600;
+//     margin-top: 5px;
+//     border-radius: 4px;
+//     border: none;
+//     cursor: pointer;
+//     background-color: #99cdfd;
+//     color: black;
+//   }
+
+//   .submin-org:hover {
+//     width: 100%;
+//     height: 35px;
+//     padding: 0px 0px;
+//     font-weight: 600;
+//     margin-top: 5px;
+//     border-radius: 4px;
+//     border: none;
+//     cursor: pointer;
+//     background-color: #278be8;
+//     color: black;
+//   }
+// }
+
+// Define variables for colors, font sizes, and other reusable values
+$primary-color: #278be8;
+$secondary-color: #99cdfd;
+$text-color: #333;
+$background-color: #f9f9f9;
+$border-color: #ddd;
+$input-height: 40px;
+$button-height: 45px;
+
 .org-form {
-  height: 350px;
+  max-width: 600px; // Define the maximum width for the form
+  margin: 0 auto; // Center the form horizontally
+  padding: 20px; // Adjust padding for a balanced layout
   display: flex;
-  align-items: center;
   flex-direction: column;
-  padding: 0 30px;
+  align-items: center;
+  background-color: $background-color; // Light background color
+  border-radius: 10px; // Rounded corners for a modern look
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
 
   .row {
-    text-align: left;
-    padding: 15px 0px;
-    display: block;
     width: 100%;
+    margin-bottom: 15px; // Increased space between rows
   }
 
   .label {
-    width: max-content;
-    font-size: 13px;
+    display: block;
+    font-size: 14px; // Slightly larger font for readability
     font-weight: 600;
-    padding-bottom: 5px;
-    color: black;
+    margin-bottom: 8px; // Space between label and input
+    color: $text-color; // Darker color for better readability
+    padding: 100px;
   }
 
   .input {
-    width: 320px;
-    background-color: white;
-    height: 32px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: 0.1px solid lightgrey;
-  }
-  .submin-org {
-    width: 100%;
-    height: 35px;
-    padding: 0px 0px;
-    font-weight: 600;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    background-color: #99cdfd;
-    color: black;
+    width: 100%; // Full width for responsiveness
+    max-width: 400px; // Maximum width to maintain consistency
+    height: $input-height; // Defined height for inputs
+    padding: 10px; // More padding for easier text entry
+    border-radius: 6px; // Rounded corners for inputs
+    border: 1px solid $border-color; // Lighter border color
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1); // Subtle inner shadow
+    font-size: 14px; // Slightly larger font for readability
+
+    &:focus {
+      border-color: $primary-color; // Highlight border color on focus
+      outline: none; // Remove default focus outline
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); // Subtle glow effect
+    }
   }
 
-  .submin-org:hover {
-    width: 100%;
-    height: 35px;
-    padding: 0px 0px;
+  .submin-org {
+    width: 100%; // Full width for consistency
+    max-width: 200px; // Maximum width to maintain button size
+    height: $button-height; // Defined height for button
+    margin-top: 10px; // Increased space above the button
     font-weight: 600;
-    margin-top: 5px;
-    border-radius: 4px;
-    border: none;
+    border-radius: 6px; // Rounded corners for the button
+    border: none; // Remove default border
     cursor: pointer;
-    background-color: #278be8;
-    color: black;
+    background-color: $secondary-color; // Light blue background color
+    color: #fff; // White text color
+    font-size: 16px; // Larger font size for better readability
+    transition: background-color 0.3s, transform 0.2s; // Smooth transition effects
+
+    &:hover {
+      background-color: $primary-color; // Darker blue on hover
+      transform: scale(1.02); // Slightly larger button on hover
+    }
+
+    &:active {
+      background-color: darken(
+        $primary-color,
+        10%
+      ); // Even darker blue on click
+      transform: scale(0.98); // Slightly smaller button on click
+    }
   }
 }

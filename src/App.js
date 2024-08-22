@@ -1,7 +1,7 @@
 import "./App.css";
 import Signup from "./pages/signup/Signup";
 import Login from "./pages/login/Login";
-import Organization from "./pages/organization/Organization";
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -10,12 +10,14 @@ import {
 } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Minortests from "./pages/minortests/Minortests";
+import Organization from "./pages/organization/Organization";
 import Navbars from "./components/navbar/Nav";
 import PatientsEntryForm from "./components/PatientsEntryForm";
 import MultipleSelectChip from "./helpers/Helper";
 import MinorTestMainPage from "./pages/minortests/MinorTestMainPage";
 import Tables from "./components/table/Tables";
 import Majortests from "./pages/majortests/majortests";
+import GridExample from "./components/aggrid/agGrid";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -28,7 +30,7 @@ function App() {
           <Route path="/" element={<Login />}></Route>
 
           <Route path="/organization" element={<Organization />}></Route>
-          <Route path="/home" element={<Home />}></Route>
+          <Route path="/home" element={<GridExample />}></Route>
           <Route path="/minor" element={<Minortests />}></Route>
           <Route path="/patiententry" element={<PatientsEntryForm />}></Route>
           <Route path="/helper" element={<Majortests />}></Route>
