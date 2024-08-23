@@ -9,6 +9,10 @@ import { getJwtToken } from "../../utils/token";
 import MinorTestAddUpdate from "./MinorTestAddUpdate";
 import "./MinorTestMainPage.scss";
 import GridExample from "../../components/aggrid/agGrid";
+import {
+  DELETE_MINOR_LAB_TEST_BY_ID,
+  GET_ALL_MINOR_LAB_TESTS,
+} from "../../apis/MinorTestAPI";
 
 const MinorTestMainPage = () => {
   const [items, setItems] = useState([]);
@@ -50,28 +54,6 @@ const MinorTestMainPage = () => {
     }
   };
 
-  const deleteLabTest = async (testId) => {
-    try {
-      const token = await getJwtToken().then((v) => v);
-      const response = await fetch(
-        `http://localhost:8091/v1/minortest/deleteMinorLabTestBy/${testId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error during fetch:", error);
-    }
-  };
-
   useEffect(() => {
     fetchMinnorLabTests();
   }, []);
@@ -91,29 +73,13 @@ const MinorTestMainPage = () => {
   const handleUpdateModalClose = () => setShowUpdateModal(false);
 
   const fetchMinnorLabTests = async () => {
-    try {
-      const token = await getJwtToken().then((v) => v);
-      const response = await fetch(
-        "http://localhost:8091/v1/minortest/getAllMinorTests",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok.");
-      }
-      const data = await response.json();
+    const data = await GET_ALL_MINOR_LAB_TESTS();
+    if (data) {
       setItems(
         data.map((dat, idx) => {
           return { ...dat, rowIdx: idx };
         })
       );
-    } catch (error) {
-      console.error("Error fetching minor lab tests:", error);
     }
   };
 
@@ -151,7 +117,7 @@ const MinorTestMainPage = () => {
       label: <DeleteIcon />,
       color: "error",
       onClick: (row) => {
-        deleteLabTest(row.testId);
+        DELETE_MINOR_LAB_TEST_BY_ID(row.testId);
         const data = items.filter((i) => i.testId !== row.testId);
         setItems(data);
       },
