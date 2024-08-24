@@ -19,7 +19,10 @@ const GridExample = (props) => {
     { field: "majorTestName", filter: "agTextColumnFilter", minWidth: 170 },
     { field: "majorTestPrice" },
     { field: "majorTestRemarks" },
-    // { field: "minorLabTestList", cellRendererFramework: <ListCellRenderer /> },
+    {
+      field: "minorLabTestList",
+      // cellRendererFramework: ListCellRenderer,
+    },
     { field: "createdBy" },
     { field: "updatedBy" },
     // { field: "gold" },
@@ -53,7 +56,17 @@ const GridExample = (props) => {
     if (data) {
       setRowData(
         data.map((dat, idx) => {
-          return { ...dat, rowIdx: idx };
+          console.log("data", dat);
+          let arr = "";
+          Object.keys(dat).forEach((key) => {
+            if (key === "minorLabTestList") {
+              const dd = dat["minorLabTestList"];
+              dd.forEach((d) => {
+                arr = d.testName && `${arr} ${d.testName},`;
+              });
+            }
+          });
+          return { ...dat, minorLabTestList: arr, rowIdx: idx };
         })
       );
     }
@@ -67,6 +80,27 @@ const GridExample = (props) => {
     fetchMinnorLabTests();
   }, []);
 
+  const onSelectionChanged = useCallback(
+    (event) => {
+      var rowCount = event.api.getSelectedNodes().length;
+      window.alert("selection changed, " + rowCount + " rows selected");
+    },
+    [window]
+  );
+
+  const onRowSelected = useCallback(
+    (event) => {
+      console.log("event", event);
+      window.alert(
+        "row " +
+          event.node.data.majorTestName +
+          " selected = " +
+          event.node.isSelected()
+      );
+    },
+    [window]
+  );
+
   return (
     <>
       <Navbars />
@@ -78,7 +112,7 @@ const GridExample = (props) => {
             justifyContent: "center",
             justifyItems: "center",
             height: 498,
-            width: "90%",
+            width: "95%",
           }}
           className="ag-theme-quartz"
         >
@@ -89,12 +123,14 @@ const GridExample = (props) => {
             defaultColDef={defaultColDef}
             onGridReady={onGridReady}
             rowSelection="multiple"
-            suppressRowClickSelection={true}
             pagination={true}
             paginationPageSize={25}
             paginationPageSizeSelector={[25, 50, 100, 500, 1000]}
             autoGroupColumnDef={autoGroupColumnDef}
-            sideBar={true}
+            scrollbarWidth={5}
+            onRowDoubleClicked={() => console.log("row clicked")}
+            onRowSelected={onRowSelected}
+            onSelectionChanged={onSelectionChanged}
           />
         </div>
       </div>

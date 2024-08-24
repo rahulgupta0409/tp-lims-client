@@ -67,7 +67,9 @@ function Navbars() {
                 navbarScroll
               >
                 <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
-                <Nav.Link href="#action2">Patients</Nav.Link>
+                <Nav.Link onClick={() => navigate("/patient")}>
+                  Patients
+                </Nav.Link>
                 <NavDropdown title="Other" id="navbarScrollingDropdown">
                   <NavDropdown.Item onClick={handleOnClickMajorTest}>
                     Major Tests
