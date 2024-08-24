@@ -2,7 +2,7 @@ import * as React from "react";
 
 const ListCellRenderer = (props) => {
   const { value } = props;
-
+  console.log("value", props);
   if (!value || !Array.isArray(value)) {
     return null;
   }

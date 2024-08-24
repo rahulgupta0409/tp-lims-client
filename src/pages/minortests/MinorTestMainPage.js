@@ -58,8 +58,10 @@ const MinorTestMainPage = () => {
     fetchMinnorLabTests();
   }, []);
 
-  const handleAddModalOpen = () => setShowModal("addModal");
-
+  const handleAddModalOpen = () => {
+    setSelectedRow({});
+    setShowModal("addModal");
+  };
   const handleAddModalClose = () => {
     setShowModal(false);
   };

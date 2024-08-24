@@ -1,0 +1,39 @@
+{
+    "patient": {
+        "firstName": "Rahul",
+        "lastName": "Gupta",
+        "age": 25,
+        "phoneNumber": "8957441012",
+        "emailId": "rahul@gmail.com",
+        "tests": [
+            {
+                "testId": "xwhuh-xbshcbs-ncjsb",
+                "testName": "Bilrubin",
+                "value": "",
+                "remarks": "This is a bilrubin test."
+            },
+            {
+                "testId": "xwhuh-xbshcbs-ncjsb",
+                "testName": "SGPT",
+                "value": "",
+                "remarks": "This is a SGPT test."
+            },
+            {
+                "testId": "xwhuh-xbshcbs-ncjsb",
+                "testName": "SGOT",
+                "value": "",
+                "remarks": "This is a SGOT test."
+            }
+        ],
+        "organization": {
+            "organizationId": "tk-lims",
+            "organizationName": "Tilak Pathology"
+        },
+        "referredDoctorId": "Himanshu Srivastava",
+        "isUpi": true,
+        "totalAmount": 300.0,
+        "discount": 100.0,
+        "paidAmount": 150.0,
+        "dueAmount": 50.0
+    }
+}
