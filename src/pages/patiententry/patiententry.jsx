@@ -110,17 +110,33 @@ const PatientEntry = () => {
           >
             <h2 className="h2">ADD PATIENT</h2>
             <div className="row">
-              <div className="label">Organization</div>
-              <Select
-                // defaultValue={[colourOptions[2], colourOptions[3]]}
-                closeMenuOnSelect={false}
-                name="colors"
-                options={organization}
-                value={selectedOrg}
-                onChange={handleOrgChange}
-                className="custom-input"
-                classNamePrefix="select"
-              />
+              <div className="span-container">
+                <div className="row">
+                  <div className="label">Organization</div>
+                  <Select
+                    // defaultValue={[colourOptions[2], colourOptions[3]]}
+                    closeMenuOnSelect={false}
+                    name="colors"
+                    options={organization}
+                    value={selectedOrg}
+                    onChange={handleOrgChange}
+                    className="custom-input"
+                    classNamePrefix="select"
+                  />
+                </div>
+                <div className="checkbox-row">
+                  <div className="checkbox-label">Out Sampled</div>
+                  <input
+                    className="checkbox-input"
+                    value={isUpi}
+                    type="checkbox"
+                    onChange={(e) => {
+                      setIsUpi(!isUpi);
+                      console.log("upi", isUpi);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
             <div className="row">
               <div className="span-container">

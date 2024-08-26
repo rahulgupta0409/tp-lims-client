@@ -1,0 +1,53 @@
+curl --location 'http://localhost:8091/v1/auth/signin' \
+--header 'Content-Type: application/json' \
+--data '{
+    "userName":"rahul01",
+    "password":"rahul01"
+}'
+
+
+----------------------------------------------------------------
+
+
+----------------------------------------------------------------
+
+
+curl --location 'http://localhost:8091/v1/patient/addPatient' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWh1bDAxIiwiaWF0IjoxNzI0NzA1NTk0LCJleHAiOjE3MjQ3MDgxMTR9.RFcSgpC3ZjoTwkG1MPgPps9ack28WydvzEWY2VEbGOY' \
+--data-raw '{
+    "firstName":"Rahul",
+    "lastName":"Gupta",
+    "age":23,
+    "phoneNumber":"8957441012",
+    "emailId":"r@gmail.com",
+    "labTestIds":[
+        "2c6adbfc-37ee-4b44-897a-0cdc0e242914a-787c-400a-9af7-9448cbe07cac",
+        "bbbac165-64cd-4c20-b97b-bad58e693c05f-3006-45f8-be44-8e16dd29d050",
+        "0d38c253-0f0c-4904-b3c1-31914849e15fe-41db-46b8-bd96-fe8732f1c2b4"  
+    ],
+    "orgId":"fab13501-1c1c-4fdf-886d-e68202368f65b-350a-4a8d-8cc1-a2845dab0eb8",
+    "isUpi":true,
+    "totalAmount":23,
+    "discount":"1",
+    "paidAmount":23
+}'
+
+
+
+-------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------
+
+
+curl --location 'http://localhost:8091/v1/valueRange/addDefaultValueRange' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJyYWh1bDAxIiwiaWF0IjoxNzI0NzA5NTg4LCJleHAiOjE3MjQ3MTIxMDh9.xSEbksq_VraFRAoU8vPdT8s11Yrj3mpMOOINmDEeegM' \
+--data '{
+    "testId":"0d38c253-0f0c-4904-b3c1-31914849e15fe-41db-46b8-bd96-fe8732f1c2b4",
+    "minAge":2,
+    "maxAge":6,
+    "defaultValue":"24.98",
+    "defaultRemark":"This is a kid.."
+}'

@@ -25,11 +25,14 @@
                 "remarks": "This is a SGOT test."
             }
         ],
-        "organization": {
-            "organizationId": "tk-lims",
-            "organizationName": "Tilak Pathology"
+        "org": {
+            "orgId": "tk-lims",
+            "orgName": "Tilak Pathology"
         },
-        "referredDoctorId": "Himanshu Srivastava",
+        "doctor": {
+            "referredDoctorId": "xsbx-xsb-xs-bsx",
+            "referredDoctorName": "Himanshu Srivastava"
+        },
         "isUpi": true,
         "totalAmount": 300.0,
         "discount": 100.0,
