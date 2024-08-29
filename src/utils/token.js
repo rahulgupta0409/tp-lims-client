@@ -18,7 +18,7 @@ const refresh = async (refreshToken) => {
     }
 
     const data = await response.json(); // Extract JSON data from the response
-    console.log("data", data);
+    // console.log("data", data);
 
     if (data?.token) {
       localStorage.setItem("token", data.token);
@@ -35,11 +35,11 @@ const refresh = async (refreshToken) => {
 // Define the getJwtToken function
 export async function getJwtToken() {
   let token = localStorage.getItem("token");
-  console.log("Local token:", token);
+  // console.log("Local token:", token);
 
   if (!token) {
     const refreshToken = getCookie("__rT");
-    console.log("Refresh token from cookie:", refreshToken);
+    // console.log("Refresh token from cookie:", refreshToken);
 
     token = await refresh(refreshToken);
   }

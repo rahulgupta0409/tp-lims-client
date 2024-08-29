@@ -2,10 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import "./patiententry.scss";
 import Select from "react-select";
 import { GET_ALL_MINOR_LAB_TESTS } from "../../apis/MinorTestAPI";
-import { getJwtToken } from "../../utils/token";
 import Navbars from "../../components/navbar/Nav";
-import { ADD_MAJOR_LAB_TEST } from "../../apis/MajorTestAPI";
+import {
+  ADD_MAJOR_LAB_TEST,
+  GET_ALL_MAJOR_LAB_TESTS,
+} from "../../apis/MajorTestAPI";
 import { GET_ALL_ORGANIZATIONS } from "../../apis/OrganizationAPI";
+import { GET_ALL_DOCTORS } from "../../apis/DoctorAPI";
 
 const PatientEntry = () => {
   const [majorTests, setMajorTests] = useState({
@@ -14,10 +17,12 @@ const PatientEntry = () => {
     majorTestPrice: 0.0,
     majorTestRemarks: "",
   });
-  const [minorLabTests, setMinorLabTests] = useState([]);
+  const [labTests, setLabTests] = useState([]);
   const [organization, setOrganization] = useState([]);
-  const [selectValue, setSelectValue] = useState([]);
-  const [selectedOrg, setSelectedOrg] = useState({});
+  const [doctors, setDoctors] = useState([]);
+  const [selectedLabValue, setSelectedLabValue] = useState([]);
+  const [selectedOrg, setSelectedOrg] = useState([]);
+  const [selectedDoctor, setSelectedDoctor] = useState([]);
   const [price, setPrice] = useState(0);
   const [isUpi, setIsUpi] = useState(true);
   const formRef = useRef(null);
@@ -26,25 +31,42 @@ const PatientEntry = () => {
     const fetchDropdown = async () => {
       try {
         const hh = await GET_ALL_MINOR_LAB_TESTS();
+        const majorTests = await GET_ALL_MAJOR_LAB_TESTS();
         const org = await GET_ALL_ORGANIZATIONS();
+        const doctors = await GET_ALL_DOCTORS();
+
+        setDoctors(
+          doctors.map((doc, idx) => ({
+            ...doc,
+            label: doc.doctorName,
+            value: doc.doctorId,
+            idx: idx,
+          }))
+        );
 
         setOrganization(
           org.map((og, idx) => ({
             ...og,
             label: og.orgName,
-            value: og.orgName,
+            value: og.orgId,
             idx: idx,
           }))
         );
 
-        setMinorLabTests(
-          hh.map((h, idx) => ({
-            ...h,
-            label: h.testName,
-            value: h.testName,
-            idx: idx,
-          }))
-        );
+        const minorTestsList = hh.map((h, idx) => ({
+          ...h,
+          label: h.testName,
+          value: h.testId,
+          idx: idx,
+        }));
+
+        const majorTestsList = majorTests.map((major, idx) => ({
+          ...major,
+          label: major.majorTestName,
+          value: major.majorTestId,
+          idx: idx,
+        }));
+        setLabTests([...minorTestsList, ...majorTestsList]);
       } catch (error) {
         console.error("Error fetching minor tests:", error);
       }
@@ -63,8 +85,12 @@ const PatientEntry = () => {
     setSelectedOrg(e);
   };
 
-  const handleChange = (e) => {
-    setSelectValue(e);
+  const handleDocChange = (e) => {
+    setSelectedDoctor(e);
+  };
+
+  const handleLabTestChange = (e) => {
+    setSelectedLabValue(e);
   };
   const handleReset = () => {
     if (formRef.current) {
@@ -74,11 +100,11 @@ const PatientEntry = () => {
 
   useEffect(() => {
     setPrice(getTestPrice());
-  }, [selectValue]);
+  }, [selectedLabValue]);
 
   const getTestPrice = () => {
     let price = 0;
-    selectValue.forEach((e) => {
+    selectedLabValue.forEach((e) => {
       price = price + e.testPrice;
     });
     return price;
@@ -90,14 +116,17 @@ const PatientEntry = () => {
     const data = await ADD_MAJOR_LAB_TEST(
       majorTests.majorTestName,
       price,
-      selectValue,
+      selectedLabValue,
       majorTests.majorTestRemarks
     );
     handleReset();
   };
 
-  console.log("selectedValue", selectValue);
-  console.log("selectedOrg", selectedOrg);
+  //   console.log("selectedLabValue", selectedLabValue);
+  //   console.log("selectedOrg", selectedOrg);
+  //   console.log("selectedDoctor", selectedDoctor);
+
+  console.log("labTests", labTests);
   return (
     <>
       <Navbars />
@@ -174,7 +203,7 @@ const PatientEntry = () => {
                   <input
                     className="input"
                     name="age"
-                    type="text"
+                    type="number"
                     placeholder="Enter age..."
                     onChange={(e) => {
                       handleOnChange("age", e.target.value);
@@ -193,19 +222,34 @@ const PatientEntry = () => {
                     }}
                   />
                 </div>
-                <div className="row">
-                  <div className="label">Email</div>
-                  <input
-                    className="input"
-                    name="emailId"
-                    type="text"
-                    placeholder="Enter email..."
-                    onChange={(e) => {
-                      handleOnChange("emailId", e.target.value);
-                    }}
-                  />
-                </div>
               </div>
+            </div>
+
+            <div className="row">
+              <div className="label">Email</div>
+              <input
+                className="input"
+                name="emailId"
+                type="text"
+                placeholder="Enter email..."
+                onChange={(e) => {
+                  handleOnChange("emailId", e.target.value);
+                }}
+              />
+            </div>
+
+            <div className="row">
+              <div className="label">Referred Doctor</div>
+              <Select
+                // defaultValue={[colourOptions[2], colourOptions[3]]}
+                closeMenuOnSelect={false}
+                name="colors"
+                options={doctors}
+                value={selectedDoctor}
+                onChange={handleDocChange}
+                className="custom-input"
+                classNamePrefix="select"
+              />
             </div>
 
             <div className="row">
@@ -215,9 +259,9 @@ const PatientEntry = () => {
                 closeMenuOnSelect={false}
                 isMulti
                 name="colors"
-                options={minorLabTests}
-                value={selectValue}
-                onChange={handleChange}
+                options={labTests}
+                value={selectedLabValue}
+                onChange={handleLabTestChange}
                 className="custom-input"
                 classNamePrefix="select"
               />
@@ -235,6 +279,7 @@ const PatientEntry = () => {
                     onChange={(e) => {
                       handleOnChange("totalAmount", e.target.value);
                     }}
+                    disabled
                   />
                 </div>
                 <div className="checkbox-row">
