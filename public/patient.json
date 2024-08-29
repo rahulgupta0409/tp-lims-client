@@ -29,7 +29,7 @@
             "orgId": "tk-lims",
             "orgName": "Tilak Pathology"
         },
-        "doctor": {
+        "referredDoctor": {
             "referredDoctorId": "xsbx-xsb-xs-bsx",
             "referredDoctorName": "Himanshu Srivastava"
         },

@@ -22,24 +22,26 @@ import PatientEntry from "./pages/patiententry/patiententry";
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
   return (
-    <Router>
-      <div>
-        {/* <Navbars /> */}
-        <Routes>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/" element={<Login />}></Route>
+    <div style={{ width: "100%", height: "100%" }}>
+      <Router>
+        <div>
+          {/* <Navbars /> */}
+          <Routes>
+            <Route path="/signup" element={<Signup />}></Route>
+            <Route path="/" element={<Login />}></Route>
 
-          <Route path="/organization" element={<Organization />}></Route>
-          <Route path="/home" element={<GridExample />}></Route>
-          <Route path="/minor" element={<Minortests />}></Route>
-          <Route path="/helper" element={<Majortests />}></Route>
-          <Route path="/minortests" element={<MinorTestMainPage />}></Route>
-          <Route path="/table" element={<Tables />}></Route>
-          <Route path="/patient" element={<PatientEntry />}></Route>
-          <Route path="*" element={<Navigate to="/" replace />}></Route>
-        </Routes>
-      </div>
-    </Router>
+            <Route path="/organization" element={<Organization />}></Route>
+            <Route path="/home" element={<GridExample />}></Route>
+            <Route path="/minor" element={<Minortests />}></Route>
+            <Route path="/helper" element={<Majortests />}></Route>
+            <Route path="/minortests" element={<MinorTestMainPage />}></Route>
+            <Route path="/table" element={<Tables />}></Route>
+            <Route path="/patient" element={<PatientEntry />}></Route>
+            <Route path="*" element={<Navigate to="/" replace />}></Route>
+          </Routes>
+        </div>
+      </Router>
+    </div>
   );
 }
 
