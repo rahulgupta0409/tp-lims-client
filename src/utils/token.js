@@ -17,7 +17,7 @@ const refresh = async (refreshToken) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = await response.json(); // Extract JSON data from the response
+    const data = await response.json();
     // console.log("data", data);
 
     if (data?.token) {

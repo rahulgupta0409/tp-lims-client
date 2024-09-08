@@ -62,6 +62,7 @@ const Login = () => {
         localStorage.setItem("token", data.token, { expires: 1 });
         localStorage.setItem("loginSuccess", "true");
         setCookie("__rT", data.refreshToken, { expires: 7 });
+        setCookie("user", data.user.fullName);
         setUserName("");
         setPassword("");
         navigate("/home");

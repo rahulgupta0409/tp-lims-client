@@ -1,3 +1,4 @@
+import { getCookie } from "../utils/cookies";
 import { getJwtToken } from "../utils/token";
 
 export async function ADD_MAJOR_LAB_TEST(
@@ -10,6 +11,7 @@ export async function ADD_MAJOR_LAB_TEST(
 
   try {
     const token = await getJwtToken().then((v) => v);
+    let createdBy = await getCookie("user");
 
     const response = await fetch(
       `http://localhost:8091/v1/majortest/addMajorLabTest`,
@@ -20,6 +22,7 @@ export async function ADD_MAJOR_LAB_TEST(
           majorTestPrice,
           minorLabTestList,
           majorTestRemarks,
+          createdBy,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +35,6 @@ export async function ADD_MAJOR_LAB_TEST(
   } catch (error) {
     console.error("Error during fetch:", error);
   }
-
   return data;
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 import "./patiententry.scss";
 import Select from "react-select";
 import { GET_ALL_MINOR_LAB_TESTS } from "../../apis/MinorTestAPI";
@@ -9,22 +9,90 @@ import {
 } from "../../apis/MajorTestAPI";
 import { GET_ALL_ORGANIZATIONS } from "../../apis/OrganizationAPI";
 import { GET_ALL_DOCTORS } from "../../apis/DoctorAPI";
+import { Checkbox } from "@mui/material";
+
+import WheelchairPickupSharpIcon from "@mui/icons-material/WheelchairPickupSharp";
+import EmojiPeopleSharpIcon from "@mui/icons-material/EmojiPeopleSharp";
+import { ADD_NEW_PATIENT } from "../../apis/PatientAPI";
+
+const initialState = {
+  labTests: [],
+  organization: [],
+  doctors: [],
+  selectedLabValue: [],
+  selectedDoctor: [],
+  selectedOrg: [],
+  isUpi: false,
+  isOutSampled: false,
+  dueAmount: 0.0,
+  paidAmount: 0.0,
+  discount: 0.0,
+  totalAmount: 0.0,
+  firstName: "",
+  lastName: "",
+  age: 0,
+  phoneNumber: "",
+  emailId: "",
+};
+
+const diksha = (state, action) => {
+  switch (action.type) {
+    case "state":
+      if (action.name === "paidAmount" && state.discount === 0) {
+        return {
+          ...state,
+          paidAmount: action.value,
+          dueAmount: state.totalAmount - action.value,
+        };
+      } else if (action.name === "discount" && state.paidAmount === 0) {
+        return {
+          ...state,
+          discount: action.value,
+          dueAmount: state.totalAmount - action.value,
+        };
+      } else if (action.name === "discount" && state.paidAmount !== 0) {
+        return {
+          ...state,
+          discount: action.value,
+          dueAmount: state.totalAmount - action.value - state.paidAmount,
+        };
+      } else if (action.name === "paidAmount" && state.discount !== 0) {
+        return {
+          ...state,
+          discount: action.value,
+          dueAmount: state.totalAmount - action.value - state.discount,
+        };
+      } else return { ...state, [action.name]: action.value };
+
+    default:
+      break;
+  }
+};
 
 const PatientEntry = () => {
-  const [majorTests, setMajorTests] = useState({
-    majorTestName: "",
-    minorLabTestList: [],
-    majorTestPrice: 0.0,
-    majorTestRemarks: "",
-  });
-  const [labTests, setLabTests] = useState([]);
-  const [organization, setOrganization] = useState([]);
-  const [doctors, setDoctors] = useState([]);
-  const [selectedLabValue, setSelectedLabValue] = useState([]);
-  const [selectedOrg, setSelectedOrg] = useState([]);
-  const [selectedDoctor, setSelectedDoctor] = useState([]);
-  const [price, setPrice] = useState(0);
-  const [isUpi, setIsUpi] = useState(true);
+  const [error, setError] = useState({});
+  const [state, setState] = useReducer(diksha, initialState);
+
+  const {
+    labTests = [],
+    organization = [],
+    doctors = [],
+    selectedLabValue,
+    selectedDoctor = [],
+    selectedOrg = [],
+    isUpi,
+    dueAmount,
+    paidAmount,
+    discount,
+    isOutSampled,
+    totalAmount,
+    firstName,
+    lastName,
+    age,
+    phoneNumber,
+    emailId,
+  } = state;
+
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -35,23 +103,27 @@ const PatientEntry = () => {
         const org = await GET_ALL_ORGANIZATIONS();
         const doctors = await GET_ALL_DOCTORS();
 
-        setDoctors(
-          doctors.map((doc, idx) => ({
+        setState({
+          type: "state",
+          name: "doctors",
+          value: doctors.map((doc, idx) => ({
             ...doc,
             label: doc.doctorName,
             value: doc.doctorId,
             idx: idx,
-          }))
-        );
+          })),
+        });
 
-        setOrganization(
-          org.map((og, idx) => ({
+        setState({
+          type: "state",
+          name: "organization",
+          value: org.map((og, idx) => ({
             ...og,
             label: og.orgName,
             value: og.orgId,
             idx: idx,
-          }))
-        );
+          })),
+        });
 
         const minorTestsList = hh.map((h, idx) => ({
           ...h,
@@ -66,7 +138,11 @@ const PatientEntry = () => {
           value: major.majorTestId,
           idx: idx,
         }));
-        setLabTests([...minorTestsList, ...majorTestsList]);
+        setState({
+          type: "state",
+          name: "labTests",
+          value: [...minorTestsList, ...majorTestsList],
+        });
       } catch (error) {
         console.error("Error fetching minor tests:", error);
       }
@@ -75,22 +151,35 @@ const PatientEntry = () => {
   }, []);
 
   const handleOnChange = (param, value) => {
-    setMajorTests((prevState) => ({
-      ...prevState,
-      [param]: param === "majorTestPrice" ? parseFloat(value) : value,
-    }));
+    setState({
+      type: "state",
+      name: param,
+      value: value,
+    });
   };
 
   const handleOrgChange = (e) => {
-    setSelectedOrg(e);
+    setState({
+      type: "state",
+      name: "selectedOrg",
+      value: e,
+    });
   };
 
   const handleDocChange = (e) => {
-    setSelectedDoctor(e);
+    setState({
+      type: "state",
+      name: "selectedDoctor",
+      value: e,
+    });
   };
 
   const handleLabTestChange = (e) => {
-    setSelectedLabValue(e);
+    setState({
+      type: "state",
+      name: "selectedLabValue",
+      value: e,
+    });
   };
   const handleReset = () => {
     if (formRef.current) {
@@ -99,44 +188,45 @@ const PatientEntry = () => {
   };
 
   useEffect(() => {
-    setPrice(getTestPrice());
+    setState({
+      type: "state",
+      name: "totalAmount",
+      value: getTestPrice(),
+    });
   }, [selectedLabValue]);
 
   const getTestPrice = () => {
     let price = 0;
-    selectedLabValue.forEach((e) => {
-      price = price + e.testPrice;
+    (selectedLabValue || []).forEach((e) => {
+      price = price + (e.testPrice || e.majorTestPrice);
     });
     return price;
   };
 
-  const handleOnClick = async (e) => {
-    e.preventDefault();
-
-    const data = await ADD_MAJOR_LAB_TEST(
-      majorTests.majorTestName,
-      price,
-      selectedLabValue,
-      majorTests.majorTestRemarks
+  const addPatient = async (e) => {
+    // e.preventDefault();
+    const orgId = selectedOrg.orgId;
+    const doctorId = selectedDoctor.doctorId;
+    const labTestIds = [];
+    await selectedLabValue.forEach((test) =>
+      labTestIds.push(test.testId || test.majorTestId)
     );
-    handleReset();
+    const addpaitent = await ADD_NEW_PATIENT({
+      ...state,
+      orgId,
+      doctorId,
+      labTestIds,
+    });
   };
-
-  //   console.log("selectedLabValue", selectedLabValue);
-  //   console.log("selectedOrg", selectedOrg);
-  //   console.log("selectedDoctor", selectedDoctor);
-
-  console.log("labTests", labTests);
+  console.log("isUpi", isUpi);
+  console.log("isOutSampled", isOutSampled);
   return (
     <>
       <Navbars />
+
       <div className="main-container">
         <div className="majortest-container">
-          <form
-            ref={formRef}
-            className="majortest-form"
-            onSubmit={handleOnClick}
-          >
+          <div ref={formRef} className="majortest-form">
             <h2 className="h2">ADD PATIENT</h2>
             <div className="row">
               <div className="span-container">
@@ -154,15 +244,14 @@ const PatientEntry = () => {
                   />
                 </div>
                 <div className="checkbox-row">
-                  <div className="checkbox-label">Out Sampled</div>
-                  <input
-                    className="checkbox-input"
-                    value={isUpi}
-                    type="checkbox"
-                    onChange={(e) => {
-                      setIsUpi(!isUpi);
-                      console.log("upi", isUpi);
-                    }}
+                  <div className="checkbox-label"></div>
+                  <Checkbox
+                    icon={<WheelchairPickupSharpIcon fontSize="large" />}
+                    checkedIcon={<EmojiPeopleSharpIcon fontSize="large" />}
+                    onChange={(e) =>
+                      handleOnChange("isOutSampled", !isOutSampled)
+                    }
+                    value={isOutSampled}
                   />
                 </div>
               </div>
@@ -176,6 +265,7 @@ const PatientEntry = () => {
                     name="firstName"
                     type="text"
                     placeholder="Enter firstname..."
+                    value={firstName}
                     onChange={(e) => {
                       handleOnChange("firstName", e.target.value);
                     }}
@@ -249,6 +339,7 @@ const PatientEntry = () => {
                 onChange={handleDocChange}
                 className="custom-input"
                 classNamePrefix="select"
+                placeholder="Select Referred Doctor..."
               />
             </div>
 
@@ -275,6 +366,7 @@ const PatientEntry = () => {
                     className="input"
                     name="totalAmount"
                     type="text"
+                    value={totalAmount}
                     placeholder="Total Amount"
                     onChange={(e) => {
                       handleOnChange("totalAmount", e.target.value);
@@ -284,7 +376,11 @@ const PatientEntry = () => {
                 </div>
                 <div className="checkbox-row">
                   <div className="checkbox-label">UPI</div>
-                  <input
+                  <Checkbox
+                    checked={isUpi}
+                    onChange={(e) => handleOnChange("isUpi", !isUpi)}
+                  />
+                  {/* <input
                     className="checkbox-input"
                     value={isUpi}
                     type="checkbox"
@@ -292,7 +388,7 @@ const PatientEntry = () => {
                       setIsUpi(!isUpi);
                       console.log("upi", isUpi);
                     }}
-                  />
+                  /> */}
                 </div>
                 <div className="row">
                   <div className="label">Paid Amount</div>
@@ -301,9 +397,13 @@ const PatientEntry = () => {
                     name="paidAmount"
                     type="text"
                     placeholder="Paid Amount"
-                    onChange={(e) => {
-                      handleOnChange("paidAmount", e.target.value);
-                    }}
+                    onChange={(e) =>
+                      setState({
+                        type: "state",
+                        name: "paidAmount",
+                        value: e.target.value,
+                      })
+                    }
                   />
                 </div>
               </div>
@@ -318,9 +418,13 @@ const PatientEntry = () => {
                     name="discount"
                     type="text"
                     placeholder="Discount"
-                    onChange={(e) => {
-                      handleOnChange("discount", e.target.value);
-                    }}
+                    onChange={(e) =>
+                      setState({
+                        type: "state",
+                        name: "discount",
+                        value: e.target.value,
+                      })
+                    }
                   />
                 </div>
                 <div className="row">
@@ -330,9 +434,11 @@ const PatientEntry = () => {
                     name="dueAmount"
                     type="text"
                     placeholder="Due"
+                    value={dueAmount}
                     onChange={(e) => {
                       handleOnChange("dueAmount", e.target.value);
                     }}
+                    disabled
                   />
                 </div>
               </div>
@@ -341,11 +447,11 @@ const PatientEntry = () => {
             {/* <div className="row"></div> */}
 
             <div className="row">
-              <button className="submin-majortest" type="submit">
+              <button className="submin-majortest" onClick={addPatient}>
                 ADD
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
