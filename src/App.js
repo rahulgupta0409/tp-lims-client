@@ -18,6 +18,7 @@ import Tables from "./components/table/Tables";
 import Majortests from "./pages/majortests/majortests";
 import GridExample from "./components/aggrid/agGrid";
 import PatientEntry from "./pages/patiententry/patiententry";
+import MainDiv from "./pages/main/mainPage";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -38,6 +39,7 @@ function App() {
             <Route path="/table" element={<Tables />}></Route>
             <Route path="/patient" element={<PatientEntry />}></Route>
             <Route path="*" element={<Navigate to="/" replace />}></Route>
+            <Route path="/rahul" element={<MainDiv />}></Route>
           </Routes>
         </div>
       </Router>

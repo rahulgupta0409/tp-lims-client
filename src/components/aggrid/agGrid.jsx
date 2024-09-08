@@ -8,7 +8,6 @@ import { ModuleRegistry } from "@ag-grid-community/core";
 import Navbars from "../navbar/Nav";
 import SimpleBar from "simplebar-react";
 import { GET_ALL_MAJOR_LAB_TESTS } from "../../apis/MajorTestAPI";
-import ListCellRenderer from "../chips/listcellrenderer";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 const GridExample = (props) => {
