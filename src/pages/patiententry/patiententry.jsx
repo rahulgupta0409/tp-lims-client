@@ -348,7 +348,7 @@ const PatientEntry = () => {
                 onChange={handleDocChange}
                 className="custom-input"
                 classNamePrefix="select"
-                placeholder="Select Referred Doctor..."
+                // placeholder="Select Referred Doctor..."
               />
             </div>
 
