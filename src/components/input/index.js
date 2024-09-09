@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.scss";
 
-const Input = ({
+const Inpu = ({
   className = "",
   name = "",
   type = "text",
@@ -28,9 +28,9 @@ const Input = ({
   );
 };
 
-export default Input;
+export default Inpu;
 
-Input.propTypes = {
+Inpu.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
