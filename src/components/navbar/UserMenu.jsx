@@ -4,13 +4,15 @@ import Avatar from "../avatar/Avatar";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { removeCookie } from "../../utils/cookies";
+import MenuItem from "./MenuItem";
+import { MdOutlineLogout } from "react-icons/md";
 
 const UserMenu = ({ currentUser }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = useCallback(() => {
-    setIsOpen(!isOpen);
+    setIsOpen((value) => !value);
   }, []);
 
   const handleLogout = () => {
@@ -53,18 +55,25 @@ const UserMenu = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                {/* <MenuItem
+                <MenuItem label={currentUser} />
+                <MenuItem
                   onClick={() => navigate("/patient")}
                   label="My Patients"
                 />
-                <MenuItem label="Airbnb your home" />
-                <hr />
-                <MenuItem onClick={() => handleLogout} label="Logout" /> */}
+                <MenuItem label="My Patients" />
+                <MenuItem label="My Organizations" />
+                <MenuItem label="My Doctors" />
+                {/* <hr /> */}
+                <MenuItem
+                  onClick={handleLogout}
+                  label="Logout"
+                  icon={<MdOutlineLogout />}
+                />
               </>
             ) : (
               <>
-                {/* <MenuItem label="Login" />
-                <MenuItem label="Sign up" /> */}
+                <MenuItem label="Login" />
+                <MenuItem label="Sign up" />
               </>
             )}
           </div>
