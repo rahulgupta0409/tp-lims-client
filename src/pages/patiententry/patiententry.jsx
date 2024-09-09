@@ -9,11 +9,14 @@ import {
 } from "../../apis/MajorTestAPI";
 import { GET_ALL_ORGANIZATIONS } from "../../apis/OrganizationAPI";
 import { GET_ALL_DOCTORS } from "../../apis/DoctorAPI";
-import { Checkbox } from "@mui/material";
-
+import { Checkbox, Tooltip } from "@mui/material";
+import { AiFillFacebook } from "react-icons/ai";
 import WheelchairPickupSharpIcon from "@mui/icons-material/WheelchairPickupSharp";
 import EmojiPeopleSharpIcon from "@mui/icons-material/EmojiPeopleSharp";
 import { ADD_NEW_PATIENT } from "../../apis/PatientAPI";
+import BasicButton from "../../components/buttons/BasicButton";
+import Input from "../../components/input/Input";
+import Navbar from "../../components/navbar/Navbar";
 
 const initialState = {
   labTests: [],
@@ -223,6 +226,7 @@ const PatientEntry = () => {
   return (
     <>
       <Navbars />
+      {/* <Navbar /> */}
 
       <div className="main-container">
         <div className="majortest-container">
@@ -245,14 +249,19 @@ const PatientEntry = () => {
                 </div>
                 <div className="checkbox-row">
                   <div className="checkbox-label"></div>
-                  <Checkbox
-                    icon={<WheelchairPickupSharpIcon fontSize="large" />}
-                    checkedIcon={<EmojiPeopleSharpIcon fontSize="large" />}
-                    onChange={(e) =>
-                      handleOnChange("isOutSampled", !isOutSampled)
-                    }
-                    value={isOutSampled}
-                  />
+                  <Tooltip
+                    describeChild
+                    title="If the patient collected the samples by themselves."
+                  >
+                    <Checkbox
+                      icon={<WheelchairPickupSharpIcon fontSize="large" />}
+                      checkedIcon={<EmojiPeopleSharpIcon fontSize="large" />}
+                      onChange={(e) =>
+                        handleOnChange("isOutSampled", !isOutSampled)
+                      }
+                      value={isOutSampled}
+                    />
+                  </Tooltip>
                 </div>
               </div>
             </div>
@@ -447,9 +456,16 @@ const PatientEntry = () => {
             {/* <div className="row"></div> */}
 
             <div className="row">
-              <button className="submin-majortest" onClick={addPatient}>
+              {/* <button className="submin-majortest" onClick={addPatient}>
                 ADD
-              </button>
+              </button> */}
+              <BasicButton
+                onClick={addPatient}
+                label="ADD"
+                // icon={AiFillFacebook}
+              />
+
+              {/* <Input id="email" label="Email Address" required /> */}
             </div>
           </div>
         </div>

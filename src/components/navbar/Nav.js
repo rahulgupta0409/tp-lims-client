@@ -9,11 +9,14 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import AccountMenu from "../accountmenu/AccountMenu";
-import Logo from "../../images/Tilak_Pathology_PNG_Logo-removebg.png";
-import { removeCookie } from "../../utils/cookies";
+// import Logo from "../../images/Tilak_Pathology_PNG_Logo-removebg.png";
+import { getCookie, removeCookie } from "../../utils/cookies";
+import UserMenu from "./UserMenu";
+import Logo from "./Logo";
 
 function Navbars() {
   const navigate = useNavigate();
+  let createdBy = getCookie("user");
 
   const handleOnClickMinorTest = (e) => {
     navigate("/minortests");
@@ -49,7 +52,7 @@ function Navbars() {
                 }
               }}
             >
-              <img
+              {/* <img
                 src={Logo}
                 style={{
                   width: "60px",
@@ -57,7 +60,8 @@ function Navbars() {
                   marginLeft: "10px",
                 }}
                 alt="Logo"
-              />
+              /> */}
+              <Logo />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="navbarScroll" />
             <Navbar.Collapse id="navbarScroll">
@@ -66,25 +70,37 @@ function Navbars() {
                 style={{ maxHeight: "100px" }}
                 navbarScroll
               >
-                <Nav.Link onClick={() => navigate("/home")}>Home</Nav.Link>
-                <Nav.Link onClick={() => navigate("/patient")}>
+                <div
+                  className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+                  onClick={() => navigate("/home")}
+                >
+                  Home
+                </div>
+
+                <div
+                  className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+                  onClick={() => navigate("/patient")}
+                >
                   Patients
-                </Nav.Link>
-                <NavDropdown title="Other" id="navbarScrollingDropdown">
-                  <NavDropdown.Item onClick={handleOnClickMajorTest}>
-                    Major Tests
-                  </NavDropdown.Item>
-                  <NavDropdown.Item onClick={handleOnClickMinorTest}>
-                    Minor Tests
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item
-                    // href="/organization"
-                    onClick={handleOnClickOrganization}
-                  >
-                    Add Organization
-                  </NavDropdown.Item>
-                </NavDropdown>
+                </div>
+
+                <div className="hidden md:block text-sm font-semibold py-2 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+                  <NavDropdown title="Other" id="navbarScrollingDropdown">
+                    <NavDropdown.Item onClick={handleOnClickMajorTest}>
+                      Major Tests
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={handleOnClickMinorTest}>
+                      Minor Tests
+                    </NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item
+                      // href="/organization"
+                      onClick={handleOnClickOrganization}
+                    >
+                      Add Organization
+                    </NavDropdown.Item>
+                  </NavDropdown>
+                </div>
                 {/* <Nav.Link href="#" disabled>
               Link
             </Nav.Link> */}
@@ -97,9 +113,10 @@ function Navbars() {
                 aria-label="Search"
               /> */}
 
-                <Button variant="danger" onClick={handleLogout}>
+                {/* <Button variant="danger" onClick={handleLogout}>
                   LOGOUT
-                </Button>
+                </Button> */}
+                <UserMenu currentUser={createdBy} />
                 {/* <div className="account-menu-nav-container">
                 <AccountMenu />
               </div> */}
