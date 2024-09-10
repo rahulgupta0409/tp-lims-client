@@ -17,6 +17,10 @@ import { ADD_NEW_PATIENT } from "../../apis/PatientAPI";
 import BasicButton from "../../components/buttons/BasicButton";
 import Input from "../../components/input/Input";
 import Navbar from "../../components/navbar/Navbar";
+import { FcMoneyTransfer } from "react-icons/fc";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { FaHospitalUser } from "react-icons/fa";
+import Heading from "../../components/headings/Heading";
 
 const initialState = {
   labTests: [],
@@ -226,18 +230,21 @@ const PatientEntry = () => {
   return (
     <>
       <Navbars />
-      {/* <Navbar /> */}
 
       <div className="main-container">
         <div className="majortest-container">
           <div ref={formRef} className="majortest-form">
-            <h2 className="h2">ADD PATIENT</h2>
+            <Heading
+              title="Patient Entry"
+              subtitle="Let's dignose the patient!"
+              center
+            />
+            <div style={{ marginTop: "30px" }}></div>
             <div className="row">
               <div className="span-container">
                 <div className="row">
                   <div className="label">Organization</div>
                   <Select
-                    // defaultValue={[colourOptions[2], colourOptions[3]]}
                     closeMenuOnSelect={false}
                     name="colors"
                     options={organization}
@@ -254,8 +261,8 @@ const PatientEntry = () => {
                     title="If the patient collected the samples by themselves."
                   >
                     <Checkbox
-                      icon={<WheelchairPickupSharpIcon fontSize="large" />}
-                      checkedIcon={<EmojiPeopleSharpIcon fontSize="large" />}
+                      icon={<FaHospitalUser size={50} />}
+                      checkedIcon={<FaHospitalUser size={50} color="red" />}
                       onChange={(e) =>
                         handleOnChange("isOutSampled", !isOutSampled)
                       }
@@ -340,7 +347,6 @@ const PatientEntry = () => {
             <div className="row">
               <div className="label">Referred Doctor</div>
               <Select
-                // defaultValue={[colourOptions[2], colourOptions[3]]}
                 closeMenuOnSelect={false}
                 name="colors"
                 options={doctors}
@@ -348,14 +354,12 @@ const PatientEntry = () => {
                 onChange={handleDocChange}
                 className="custom-input"
                 classNamePrefix="select"
-                // placeholder="Select Referred Doctor..."
               />
             </div>
 
             <div className="row">
               <div className="label">Tests</div>
               <Select
-                // defaultValue={[colourOptions[2], colourOptions[3]]}
                 closeMenuOnSelect={false}
                 isMulti
                 name="colors"
@@ -384,20 +388,23 @@ const PatientEntry = () => {
                   />
                 </div>
                 <div className="checkbox-row">
-                  <div className="checkbox-label">UPI</div>
-                  <Checkbox
+                  <div className="checkbox-label"></div>
+                  {/* <Checkbox
                     checked={isUpi}
                     onChange={(e) => handleOnChange("isUpi", !isUpi)}
-                  />
-                  {/* <input
-                    className="checkbox-input"
-                    value={isUpi}
-                    type="checkbox"
-                    onChange={(e) => {
-                      setIsUpi(!isUpi);
-                      console.log("upi", isUpi);
-                    }}
                   /> */}
+
+                  <Tooltip
+                    describeChild
+                    title="If the patient is paying through UPI."
+                  >
+                    <Checkbox
+                      icon={<FcMoneyTransfer size={50} />}
+                      checkedIcon={<GiTakeMyMoney size={50} color="red" />}
+                      onChange={(e) => handleOnChange("isUpi", !isUpi)}
+                      value={isUpi}
+                    />
+                  </Tooltip>
                 </div>
                 <div className="row">
                   <div className="label">Paid Amount</div>
@@ -453,19 +460,8 @@ const PatientEntry = () => {
               </div>
             </div>
 
-            {/* <div className="row"></div> */}
-
             <div className="row">
-              {/* <button className="submin-majortest" onClick={addPatient}>
-                ADD
-              </button> */}
-              <BasicButton
-                onClick={addPatient}
-                label="ADD"
-                // icon={AiFillFacebook}
-              />
-
-              {/* <Input id="email" label="Email Address" required /> */}
+              <BasicButton onClick={addPatient} label="ADD" />
             </div>
           </div>
         </div>
