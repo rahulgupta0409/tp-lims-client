@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import useFetch from "../../custom-hooks/useFetch";
 import { setCookie } from "../../utils/cookies";
+import Heading from "../../components/headings/Heading";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -81,7 +82,12 @@ const Login = () => {
     <div>
       <div className="login-container">
         <form className="login-form">
-          <h2 className="h2">LOGIN</h2>
+          {/* <h2 className="h2">LOGIN</h2> */}
+          <Heading
+            title="Welcome Back"
+            subtitle="Login to your Account!"
+            center
+          />
           <div className="row">
             <div className="label">Username</div>
             <input

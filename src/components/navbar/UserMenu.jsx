@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 import Avatar from "../avatar/Avatar";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -10,6 +10,7 @@ import { MdOutlineLogout } from "react-icons/md";
 const UserMenu = ({ currentUser }) => {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef(null);
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -21,11 +22,25 @@ const UserMenu = ({ currentUser }) => {
     localStorage.removeItem("token");
     navigate("/");
   };
+
+  const handleClickOutside = (event) => {
+    if (menuRef.current && !menuRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         <div
-          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+          className="hidden md:block text-lg font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
           //   onClick={onRent}
         >
           Doctors
@@ -51,7 +66,10 @@ const UserMenu = ({ currentUser }) => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-sm">
+        <div
+          ref={menuRef}
+          className="absolute rounded-2xl shadow-md w-[40vw] md:w-3/4 bg-white overflow-hidden right-0 top-12 text-base"
+        >
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
