@@ -224,9 +224,12 @@ const PatientEntry = () => {
       doctorId,
       labTestIds,
     });
+    // const data = await addPatient;
+    // if (data != null) {
+    //   handleReset();
+    // }
   };
-  console.log("isUpi", isUpi);
-  console.log("isOutSampled", isOutSampled);
+
   return (
     <>
       <Navbars />
@@ -235,8 +238,8 @@ const PatientEntry = () => {
         <div className="majortest-container">
           <div ref={formRef} className="majortest-form">
             <Heading
-              title="Patient Entry"
-              subtitle="Let's dignose the patient!"
+              title="Register Patient"
+              subtitle="Your Diagnosis Starts Here!"
               center
             />
             <div style={{ marginTop: "30px" }}></div>
@@ -245,13 +248,13 @@ const PatientEntry = () => {
                 <div className="row">
                   <div className="label">Organization</div>
                   <Select
-                    closeMenuOnSelect={false}
+                    closeMenuOnSelect={true}
                     name="colors"
                     options={organization}
                     value={selectedOrg}
                     onChange={handleOrgChange}
-                    className="custom-input"
-                    classNamePrefix="select"
+                    className="my-select"
+                    classNamePrefix="my-select"
                   />
                 </div>
                 <div className="checkbox-row">
@@ -347,13 +350,13 @@ const PatientEntry = () => {
             <div className="row">
               <div className="label">Referred Doctor</div>
               <Select
-                closeMenuOnSelect={false}
+                closeMenuOnSelect={true}
                 name="colors"
                 options={doctors}
                 value={selectedDoctor}
                 onChange={handleDocChange}
-                className="custom-input"
-                classNamePrefix="select"
+                className="my-select"
+                classNamePrefix="my-select"
               />
             </div>
 
@@ -366,8 +369,8 @@ const PatientEntry = () => {
                 options={labTests}
                 value={selectedLabValue}
                 onChange={handleLabTestChange}
-                className="custom-input"
-                classNamePrefix="select"
+                className="my-select"
+                classNamePrefix="my-select"
               />
             </div>
 

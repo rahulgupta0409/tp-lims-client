@@ -60,7 +60,10 @@ export default function Tables({
 
   return (
     <Paper sx={{ width: "80%", overflow: "hidden" }}>
-      <TableContainer className="table-main-container" sx={{ maxHeight: 350 }}>
+      <TableContainer
+        className="table-main-container"
+        sx={{ minHeight: 350, maxHeight: 350 }}
+      >
         <Table
           stickyHeader
           aria-label="sticky table"

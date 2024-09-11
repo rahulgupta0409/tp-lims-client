@@ -31,6 +31,61 @@
     // z-index: 999;
     position: relative;
 
+    ///////////
+
+    .my-select {
+      // General styles for the select component
+      .my-select__control {
+        width: 100%;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+        box-shadow: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+
+        &:hover {
+          border-color: #007bff;
+        }
+      }
+
+      .my-select__control--is-focused {
+        border-color: #007bff;
+        box-shadow: 0 0 0 1px #007bff;
+      }
+
+      .my-select__menu {
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .my-select__option {
+        color: #000;
+        padding: 10px;
+
+        &--is-selected {
+          background-color: #007bff;
+          color: #fff;
+        }
+
+        &--is-focused {
+          background-color: #e9ecef;
+        }
+      }
+
+      .my-select__single-value {
+        color: #000;
+      }
+
+      .my-select__placeholder {
+        color: #6c757d;
+      }
+
+      .my-select__indicator {
+        color: #007bff;
+      }
+    }
+
+    ////////////
     .h2 {
       width: 100%;
       margin-bottom: 19px;

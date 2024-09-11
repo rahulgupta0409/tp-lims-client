@@ -71,20 +71,20 @@ function Navbars() {
                 navbarScroll
               >
                 <div
-                  className="hidden md:block text-lg font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+                  className="hidden md:block text-lg font-semibold py-3 px-4 rounded hover:bg-neutral-100 transition cursor-pointer"
                   onClick={() => navigate("/home")}
                 >
                   Home
                 </div>
 
                 <div
-                  className="hidden md:block text-lg font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+                  className="hidden md:block text-lg font-semibold py-3 px-4 rounded hover:bg-neutral-100 transition cursor-pointer"
                   onClick={() => navigate("/patient")}
                 >
                   Patients
                 </div>
 
-                <div className="hidden md:block text-lg font-semibold py-2 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
+                <div className="hidden md:block text-lg font-semibold py-2 px-4 rounded hover:bg-neutral-100 transition cursor-pointer">
                   <NavDropdown title="Other" id="navbarScrollingDropdown">
                     <NavDropdown.Item onClick={handleOnClickMajorTest}>
                       Major Tests
