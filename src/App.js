@@ -20,6 +20,7 @@ import GridExample from "./components/aggrid/agGrid";
 import PatientEntry from "./pages/patiententry/patiententry";
 import MainDiv from "./pages/main/mainPage";
 import Modal from "./components/modals/Modals";
+import BackToTopButton from "./components/BackToTopButton";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -28,6 +29,7 @@ function App() {
       <Router>
         <div>
           {/* <Navbars /> */}
+          <BackToTopButton />
           <Routes>
             <Route path="/signup" element={<Signup />}></Route>
             <Route path="/" element={<Login />}></Route>
