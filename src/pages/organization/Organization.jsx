@@ -2,6 +2,10 @@ import React, { useRef, useState } from "react";
 import Navbars from "../../components/navbar/Nav";
 import toast, { Toaster } from "react-hot-toast";
 import "./Organization.scss";
+import Container from "../../components/container/Container";
+import Input from "../../components/input/Input";
+import BasicButton from "../../components/buttons/BasicButton";
+import Heading from "../../components/headings/Heading";
 
 const Organization = () => {
   const [orgName, setOrgName] = useState("");
@@ -28,11 +32,10 @@ const Organization = () => {
   const notify = () =>
     toast.success("Added Successfully!", {
       duration: 4000,
-      position: "top-right",
+      position: "bottom-right",
     });
 
-  const handleOnClick = async (e) => {
-    e.preventDefault();
+  const handleAddOrgOnClick = async (e) => {
     try {
       const response = await fetch(
         "http://localhost:8091/v1/organization/addOrganization",
@@ -50,10 +53,11 @@ const Organization = () => {
       );
 
       const data = await response.json();
-      handleReset();
+
       setOrgName("");
       setOrgDetails("");
       if (data != null) {
+        handleReset();
         notify();
       }
     } catch (error) {
@@ -66,42 +70,41 @@ const Organization = () => {
       <Navbars />
       <Toaster />
       <div className="org-container">
-        <form ref={formRef} className="org-form" onSubmit={handleOnClick}>
-          <h2 className="h2">ORGANIZATION</h2>
+        <div ref={formRef} className="org-form">
           <div className="row">
-            <div className="label">Organization Name</div>
-            <input
-              className="input"
-              name="orgName"
-              type="text"
-              placeholder="Enter organization name..."
+            <Heading
+              title="Register Organization"
+              subtitle="Org makes thing happen!"
+              center
+            />
+          </div>
+          <hr />
+
+          <div className="row">
+            <Input
+              id="orgName"
+              label="Organization Name"
+              value={orgName}
               onChange={(e) => {
                 handleOnChange("orgName", e.target.value);
               }}
             />
           </div>
           <div className="row">
-            <div className="label">Details</div>
-            <input
-              className="input"
-              name="orgDetails"
-              type="text"
-              placeholder="Enter organization details..."
+            <Input
+              id="orgDetails"
+              label="Details"
+              value={orgDetails}
               onChange={(e) => {
                 handleOnChange("orgDetails", e.target.value);
               }}
             />
           </div>
+          <hr />
           <div className="row">
-            <button
-              className="submin-majortest"
-              type="submit"
-              //onClick={handleOnClick}
-            >
-              ADD ORG
-            </button>
+            <BasicButton onClick={handleAddOrgOnClick} label="ADD ORG" />
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
