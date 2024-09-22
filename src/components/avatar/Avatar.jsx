@@ -13,7 +13,7 @@ const Avatar = ({ src, userName }) => {
         />
       ) : userName ? (
         <img
-          className="rounded-full h-[30px] w-[30px]"
+          className="rounded-full h-[30px] w-[30px] bg-[#a78bfa]"
           alt="nameImage"
           src={`https://ui-avatars.com/api/?name=${userName}`}
         />

@@ -1,0 +1,50 @@
+.custom-stack {
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #eef1ff;
+  align-items: center;
+
+  .stack-icon {
+    padding: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+
+    svg {
+      font-size: 40px !important;
+    }
+  }
+
+  .stack-details {
+    display: flex;
+    flex-direction: column;
+
+    .stack-label {
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .stack-desc {
+      font-size: 12px;
+    }
+  }
+
+  .stack-first-child {
+    position: absolute;
+    left: 25%;
+  }
+
+  .stack-progress {
+    width: 100px;
+    position: absolute;
+    right: 80px;
+    cursor: pointer;
+
+    .MuiLinearProgress-determinate {
+      border-radius: 10px;
+      height: 10px;
+    }
+  }
+}
