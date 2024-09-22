@@ -1,0 +1,28 @@
+.date-time-component {
+  background-color: white;
+  justify-content: end;
+  align-items: end;
+}
+
+.patient-list-container {
+  margin: 0 2%;
+  height: 100%;
+}
+
+.modal-dialog {
+  max-width: 70% !important;
+  display: flex;
+  justify-content: center;
+
+  .modal-content {
+    width: 75%;
+  }
+}
+
+.search-calender-main-container {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 32px;
+  margin-left: 32px;
+  margin-bottom: 20px;
+}
