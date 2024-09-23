@@ -40,7 +40,14 @@ const initialState = {
   age: 0,
   phoneNumber: "",
   emailId: "",
+  gender: "",
 };
+
+const genderOptions = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "Transgender", label: "Trans" },
+];
 
 const diksha = (state, action) => {
   switch (action.type) {
@@ -98,6 +105,7 @@ const PatientEntry = () => {
     age,
     phoneNumber,
     emailId,
+    gender,
   } = state;
 
   const formRef = useRef(null);
@@ -173,6 +181,14 @@ const PatientEntry = () => {
     });
   };
 
+  const handleGenderChange = (e) => {
+    setState({
+      type: "state",
+      name: "gender",
+      value: e.value,
+    });
+  };
+
   const handleDocChange = (e) => {
     setState({
       type: "state",
@@ -229,6 +245,7 @@ const PatientEntry = () => {
     //   handleReset();
     // }
   };
+  console.log("state", state);
 
   return (
     <>
@@ -335,16 +352,32 @@ const PatientEntry = () => {
             </div>
 
             <div className="row">
-              <div className="label">Email</div>
-              <input
-                className="input"
-                name="emailId"
-                type="text"
-                placeholder="Enter email..."
-                onChange={(e) => {
-                  handleOnChange("emailId", e.target.value);
-                }}
-              />
+              <div className="span-container">
+                <div className="row">
+                  <div className="label">Gender</div>
+                  <Select
+                    closeMenuOnSelect={true}
+                    name="colors"
+                    options={genderOptions}
+                    value={gender.value}
+                    onChange={handleGenderChange}
+                    className="my-select"
+                    classNamePrefix="my-select"
+                  />
+                </div>
+                <div className="row">
+                  <div className="label">Email</div>
+                  <input
+                    className="input"
+                    name="emailId"
+                    type="text"
+                    placeholder="Enter email..."
+                    onChange={(e) => {
+                      handleOnChange("emailId", e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="row">

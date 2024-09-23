@@ -19,6 +19,11 @@ import { BsCalendar2DateFill } from "react-icons/bs";
 import Avatar from "../../components/avatar/Avatar";
 import Search from "../../components/search/search";
 import Heading from "../../components/headings/Heading";
+import { Chip } from "@mui/material";
+import { GrInProgress } from "react-icons/gr";
+import DoneIcon from "@mui/icons-material/Done";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import PatientProgressBar from "../../components/progressbars/progressBar";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -29,7 +34,9 @@ const Patients = () => {
       key: "selection",
     },
   ]);
+
   const [showModal, setShowModal] = useState(false);
+
   // useEffect(() => {
   //   const asyncFn = async () => {
   //     try {
@@ -104,7 +111,12 @@ const Patients = () => {
       </div>
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton></Modal.Header>
-        <Modal.Body style={{ display: "flex", justifyContent: "center" }}>
+        <Modal.Body
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
           <DateRangePicker
             onChange={(item) => setDateTimeValue([item.selection])}
             showSelectionPreview={true}
@@ -136,7 +148,8 @@ const Patients = () => {
                   label={`Name: ${
                     patient?.firstName + " " + patient?.lastName
                   }`}
-                  desc={`Age: ${patient?.age}`}
+                  desc={`Age: ${patient?.age} Gender: ${patient?.gender}`}
+                  component={<PatientProgressBar progress={12} />}
                   icon={
                     <Avatar
                       userName={patient?.firstName + " " + patient?.lastName}

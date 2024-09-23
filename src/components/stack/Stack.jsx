@@ -11,7 +11,15 @@ function HomeIcon(props) {
   );
 }
 
-const Stack = ({ icon, className, desc, label, idx, value = 91 }) => {
+const Stack = ({
+  icon,
+  className,
+  desc,
+  label,
+  idx,
+  value = 91,
+  component,
+}) => {
   return (
     <div className="custom-stack" key={idx}>
       <div className="stack-icon">{icon}</div>
@@ -19,7 +27,7 @@ const Stack = ({ icon, className, desc, label, idx, value = 91 }) => {
         <span className="stack-label">{label}</span>
         <span className="stack-desc">{desc}</span>
       </div>
-      <div className="stack-first-child">Male</div>
+      <div className="stack-first-child">{component}</div>
       <div className="stack-progress">
         <LinearProgress
           color={
