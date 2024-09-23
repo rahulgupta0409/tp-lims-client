@@ -18,6 +18,7 @@ export async function ADD_NEW_PATIENT(payLoad) {
     discount,
     paidAmount,
     dueAmount,
+    gender,
   } = payLoad;
   let data;
 
@@ -45,6 +46,7 @@ export async function ADD_NEW_PATIENT(payLoad) {
           paidAmount,
           dueAmount,
           createdBy,
+          gender,
         }),
         headers: {
           "Content-Type": "application/json",

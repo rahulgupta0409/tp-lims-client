@@ -32,14 +32,14 @@
   }
 
   .stack-first-child {
-    position: absolute;
-    left: 25%;
+    position: relative;
+    margin-left: 20%;
   }
 
   .stack-progress {
     width: 100px;
-    position: absolute;
-    right: 80px;
+    position: relative;
+    margin-left: 20%;
     cursor: pointer;
 
     .MuiLinearProgress-determinate {
