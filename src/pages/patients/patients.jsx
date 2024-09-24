@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
@@ -24,6 +24,7 @@ import { GrInProgress } from "react-icons/gr";
 import DoneIcon from "@mui/icons-material/Done";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import PatientProgressBar from "../../components/progressbars/progressBar";
+import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -34,22 +35,28 @@ const Patients = () => {
       key: "selection",
     },
   ]);
-
+  const [patientIds, setPatientIds] = useState([]);
+  const [reportProgress, setReportProgress] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  // useEffect(() => {
-  //   const asyncFn = async () => {
-  //     try {
-  //       const allPatients = await GET_ALL_PATIENTS();
-  //       if (allPatients != null) {
-  //         setPatients(allPatients);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching minor tests:", error);
-  //     }
-  //   };
-  //   asyncFn();
-  // }, []);
+  useEffect(() => {
+    const asyncFn = async () => {
+      if (patientIds.length > 0) {
+        try {
+          const reportProgress = await GET_REPORT_PROGRESS_BY_PATIENT_IDS(
+            patientIds
+          );
+          if (reportProgress != null) {
+            setReportProgress(reportProgress);
+            console.log("reportProgress", reportProgress);
+          }
+        } catch (error) {
+          console.error("Error fetching report progress:", error);
+        }
+      }
+    };
+    asyncFn();
+  }, [patientIds]);
 
   useEffect(() => {
     const asyncFn = async () => {
@@ -61,6 +68,8 @@ const Patients = () => {
         if (allPatients != null) {
           console.log(allPatients);
           setPatients(allPatients);
+          const Ids = allPatients.map((patient) => patient.patientId);
+          setPatientIds(Ids);
         }
       } catch (error) {
         console.error("Error fetching minor tests:", error);
@@ -69,7 +78,7 @@ const Patients = () => {
     asyncFn();
   }, [dateTimeValue]);
 
-  console.log("dateTimeValue", dateTimeValue);
+  console.log("patientIds", patientIds);
   return (
     <>
       <Navbars />
@@ -109,7 +118,11 @@ const Patients = () => {
           <BsCalendar2DateFill style={{ cursor: "pointer" }} size={50} />
         </div>
       </div>
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
+      <Modal
+        sx={{ width: "2000px" }}
+        show={showModal}
+        onHide={() => setShowModal(false)}
+      >
         <Modal.Header closeButton></Modal.Header>
         <Modal.Body
           style={{
@@ -150,6 +163,14 @@ const Patients = () => {
                   }`}
                   desc={`Age: ${patient?.age} Gender: ${patient?.gender}`}
                   component={<PatientProgressBar progress={12} />}
+                  value={reportProgress
+                    .filter((p) => patient.patientId == p.patientId)
+                    .map((pro) => pro.progress)}
+                  entity={
+                    patient?.dueAmount > 0
+                      ? `Due Amount: ${patient?.dueAmount} INR`
+                      : ``
+                  }
                   icon={
                     <Avatar
                       userName={patient?.firstName + " " + patient?.lastName}

@@ -121,3 +121,28 @@ export async function GET_ALL_PATIENTS_BY_DATE_RANGE(startDate, endDate) {
 
   return data;
 }
+
+export async function GET_ALL_PATIENTS_BY_SEARCH(searchQuery) {
+  let data;
+
+  try {
+    const token = await getJwtToken().then((v) => v);
+
+    const response = await fetch(
+      `http://localhost:8091/v1/patient/searchPatients?query=${searchQuery}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (!response.ok) {
+      throw new Error("Network response was not ok.");
+    }
+    data = await response.json();
+  } catch (error) {}
+
+  return data;
+}
