@@ -1,11 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Heading = ({ title, subtitle, center }) => {
+const Heading = ({ title, subtitle, center, style }) => {
   return (
-    <div className={center ? "text-center" : "text-start"}>
-      <div className="text-2xl font-bold">{title}</div>
-      <div className="font-light text-neutral-500 mt-2">{subtitle}</div>
+    <div style={style}>
+      <div className={center ? "text-center" : "text-start"}>
+        <div className="text-2xl font-bold">{title}</div>
+        <div className="font-light text-neutral-500 mt-2">{subtitle}</div>
+      </div>
     </div>
   );
 };

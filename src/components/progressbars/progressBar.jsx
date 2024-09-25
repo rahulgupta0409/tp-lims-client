@@ -52,33 +52,39 @@ const PatientProgressBar = ({ progress }) => {
         ) : (
           <div></div>
         )}
-        <div>
-          {reporting ? (
-            <Chip
-              size="small"
-              color="warning"
-              style={{ cursor: "pointer" }}
-              avatar={<DoneAllIcon style={{ borderRadius: "20px" }} size={1} />}
-              label="Reported"
-              onClick={handleReportingClick}
-            />
-          ) : (
-            <Chip
-              size="small"
-              color="warning"
-              variant="outlined"
-              style={{ cursor: "pointer" }}
-              avatar={
-                <HourglassTopIcon
-                  style={{ borderRadius: "20px", backgroundColor: "warning" }}
-                  size={1}
-                />
-              }
-              label="Reporting..."
-              onClick={handleReportingClick}
-            />
-          )}
-        </div>
+        {progress > 50 ? (
+          <div>
+            {reporting ? (
+              <Chip
+                size="small"
+                color="warning"
+                style={{ cursor: "pointer" }}
+                avatar={
+                  <DoneAllIcon style={{ borderRadius: "20px" }} size={1} />
+                }
+                label="Reported"
+                onClick={handleReportingClick}
+              />
+            ) : (
+              <Chip
+                size="small"
+                color="warning"
+                variant="outlined"
+                style={{ cursor: "pointer" }}
+                avatar={
+                  <HourglassTopIcon
+                    style={{ borderRadius: "20px", backgroundColor: "warning" }}
+                    size={1}
+                  />
+                }
+                label="Reporting..."
+                onClick={handleReportingClick}
+              />
+            )}
+          </div>
+        ) : (
+          <div></div>
+        )}
         <div>
           {doctorApproval ? (
             <Chip

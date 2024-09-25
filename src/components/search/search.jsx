@@ -2,7 +2,7 @@ import { Input } from "@mui/material";
 import React from "react";
 import { BiSearch } from "react-icons/bi";
 
-const Search = ({ locationLabel, durationLabel, guessLabel }) => {
+const Search = ({ locationLabel, durationLabel, guessLabel, component }) => {
   return (
     <div
       //   onClick={searchModel.onOpen}
@@ -13,7 +13,8 @@ const Search = ({ locationLabel, durationLabel, guessLabel }) => {
         {/* <div className="hidden sm:block text-losm font-semibold px-6 border-x-[1px] flex-1 text-center">
           {durationLabel}
         </div> */}
-        <input style={{ width: "100%", outline: "none" }} type="text" />
+        {component}
+
         <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3">
           <div className="hidden sm:block text-center">{guessLabel}</div>
           <div className="p-2 bg-rose-500 rounded-full text-white">

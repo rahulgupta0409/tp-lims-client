@@ -1,7 +1,7 @@
 import React from "react";
 import "./Stack.scss";
 import SvgIcon from "@mui/material/SvgIcon";
-import { LinearProgress } from "@mui/material";
+import { LinearProgress, Tooltip } from "@mui/material";
 
 function HomeIcon(props) {
   return (
@@ -33,19 +33,27 @@ const Stack = ({
       <div className="stack-entity-child">{entity}</div>
       <div className="stack-first-child">{component}</div>
       <div className="stack-progress">
-        <LinearProgress
-          color={
-            value > 90
-              ? "success"
-              : value > 70
-              ? "primary"
-              : value > 40
-              ? "warning"
-              : "error"
-          }
-          variant="determinate"
-          value={value}
-        />
+        <Tooltip
+          describeChild
+          placement="top"
+          arrow
+          title={`${value}% completed`}
+          enterDelay={1000}
+        >
+          <LinearProgress
+            color={
+              value > 90
+                ? "success"
+                : value > 70
+                ? "primary"
+                : value > 40
+                ? "warning"
+                : "error"
+            }
+            variant="determinate"
+            value={value}
+          />
+        </Tooltip>
       </div>
     </div>
   );

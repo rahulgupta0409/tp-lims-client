@@ -13,18 +13,20 @@ import "./patients.scss";
 import {
   GET_ALL_PATIENTS,
   GET_ALL_PATIENTS_BY_DATE_RANGE,
+  GET_ALL_PATIENTS_BY_SEARCH,
 } from "../../apis/PatientAPI";
 import { Modal } from "react-bootstrap";
 import { BsCalendar2DateFill } from "react-icons/bs";
-import Avatar from "../../components/avatar/Avatar";
+// import Avatar from "../../components/avatar/Avatar";
 import Search from "../../components/search/search";
 import Heading from "../../components/headings/Heading";
-import { Chip } from "@mui/material";
+import { Avatar, Chip, Tooltip } from "@mui/material";
 import { GrInProgress } from "react-icons/gr";
 import DoneIcon from "@mui/icons-material/Done";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import PatientProgressBar from "../../components/progressbars/progressBar";
 import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
+import { deepOrange, deepPurple } from "@mui/material/colors";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -38,6 +40,9 @@ const Patients = () => {
   const [patientIds, setPatientIds] = useState([]);
   const [reportProgress, setReportProgress] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const reverseString = (str) => [...str].reverse().join("");
 
   useEffect(() => {
     const asyncFn = async () => {
@@ -61,22 +66,38 @@ const Patients = () => {
   useEffect(() => {
     const asyncFn = async () => {
       try {
-        const allPatients = await GET_ALL_PATIENTS_BY_DATE_RANGE(
-          dateTimeValue[0]?.startDate,
-          dateTimeValue[0]?.endDate
-        );
-        if (allPatients != null) {
-          console.log(allPatients);
-          setPatients(allPatients);
-          const Ids = allPatients.map((patient) => patient.patientId);
-          setPatientIds(Ids);
+        const searchResult = await GET_ALL_PATIENTS_BY_SEARCH(query);
+        if (searchResult != null) {
+          setPatients(searchResult);
         }
       } catch (error) {
-        console.error("Error fetching minor tests:", error);
+        console.error("Error fetching report progress:", error);
       }
     };
     asyncFn();
-  }, [dateTimeValue]);
+  }, [query]);
+
+  useEffect(() => {
+    const asyncFn = async () => {
+      if (query.length === 0) {
+        try {
+          const allPatients = await GET_ALL_PATIENTS_BY_DATE_RANGE(
+            dateTimeValue[0]?.startDate,
+            dateTimeValue[0]?.endDate
+          );
+          if (allPatients != null) {
+            console.log(allPatients);
+            setPatients(allPatients);
+            const Ids = allPatients.map((patient) => patient.patientId);
+            setPatientIds(Ids);
+          }
+        } catch (error) {
+          console.error("Error fetching minor tests:", error);
+        }
+      }
+    };
+    asyncFn();
+  }, [dateTimeValue, query]);
 
   console.log("patientIds", patientIds);
   return (
@@ -95,7 +116,20 @@ const Patients = () => {
           <Heading title="Patients" subtitle="All patients are here!" center />
         </div>
         <div style={{ width: "40%" }}>
-          <Search />
+          <Search
+            component={
+              <input
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  outline: "none",
+                  fontWeight: "bold",
+                }}
+                type="text"
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            }
+          />
         </div>
 
         <div
@@ -157,24 +191,50 @@ const Patients = () => {
             patients.map((patient) => {
               return (
                 <Stack
+                  id={patient?.patientLabId}
                   key={patient?.patientId}
                   label={`Name: ${
                     patient?.firstName + " " + patient?.lastName
                   }`}
                   desc={`Age: ${patient?.age} Gender: ${patient?.gender}`}
-                  component={<PatientProgressBar progress={12} />}
+                  component={<PatientProgressBar progress={51} />}
                   value={reportProgress
                     .filter((p) => patient.patientId == p.patientId)
                     .map((pro) => pro.progress)}
                   entity={
-                    patient?.dueAmount > 0
-                      ? `Due Amount: ${patient?.dueAmount} INR`
-                      : ``
+                    <div style={{ display: "flex", flexDirection: "row" }}>
+                      {/* <span>
+                        {patient?.dueAmount > 0
+                          ? `Due Amount: ${patient?.dueAmount} INR`
+                          : ``}
+                      </span> */}
+                      <span>
+                        {patient?.dueAmount > 0
+                          ? `${patient?.createdDate.substring(0, 10)}`
+                          : ``}
+                      </span>
+                    </div>
                   }
                   icon={
-                    <Avatar
-                      userName={patient?.firstName + " " + patient?.lastName}
-                    />
+                    patient?.dueAmount > 0 ? (
+                      <Tooltip
+                        describeChild
+                        placement="top"
+                        arrow
+                        title={`Patient has a pending Due Amount: Rs. ${patient?.dueAmount}`}
+                        enterDelay={1000}
+                      >
+                        <Avatar sx={{ bgcolor: deepPurple[500] }}>
+                          {patient?.firstName.substring(0, 1) +
+                            patient?.lastName.substring(0, 1)}
+                        </Avatar>
+                      </Tooltip>
+                    ) : (
+                      <Avatar sx={{ bgcolor: deepOrange[500] }}>
+                        {patient?.firstName.substring(0, 1) +
+                          patient?.lastName.substring(0, 1)}
+                      </Avatar>
+                    )
                   }
                 />
               );
@@ -182,6 +242,7 @@ const Patients = () => {
           ) : (
             <div>
               <Heading
+                style={{ padding: "100px" }}
                 title="No Result Found!"
                 subtitle="No patients were tested."
                 center
