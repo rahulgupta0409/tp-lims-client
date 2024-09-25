@@ -31,11 +31,13 @@ const BackToTopButton = () => {
               position: "fixed",
               width: "50px",
               height: "50px",
-              right: "50px",
+              right: "0",
               bottom: "50px",
               fontSize: "50px",
               cursor: "pointer",
               zIndex: "999",
+              borderRadius: "100px",
+              backgroundColor: "white",
             }}
           />
         </Tooltip>

@@ -9,7 +9,7 @@ import {
 } from "../../apis/MajorTestAPI";
 import { GET_ALL_ORGANIZATIONS } from "../../apis/OrganizationAPI";
 import { GET_ALL_DOCTORS } from "../../apis/DoctorAPI";
-import { Checkbox, Tooltip } from "@mui/material";
+import { Avatar, Checkbox, Tooltip } from "@mui/material";
 import { AiFillFacebook } from "react-icons/ai";
 import WheelchairPickupSharpIcon from "@mui/icons-material/WheelchairPickupSharp";
 import EmojiPeopleSharpIcon from "@mui/icons-material/EmojiPeopleSharp";
@@ -21,6 +21,8 @@ import { FcMoneyTransfer } from "react-icons/fc";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { FaHospitalUser } from "react-icons/fa";
 import Heading from "../../components/headings/Heading";
+import UPIColor from "../../images/UPI-Color.png";
+// import Avatar from "../../components/avatar/Avatar";
 
 const initialState = {
   labTests: [],
@@ -435,7 +437,15 @@ const PatientEntry = () => {
                     title="If the patient is paying through UPI."
                   >
                     <Checkbox
-                      icon={<FcMoneyTransfer size={50} />}
+                      // icon={<FcMoneyTransfer size={50} />}
+                      icon={
+                        <Avatar
+                          src={UPIColor}
+                          sx={{
+                            objectFit: "cover",
+                          }}
+                        />
+                      }
                       checkedIcon={<GiTakeMyMoney size={50} color="red" />}
                       onChange={(e) => handleOnChange("isUpi", !isUpi)}
                       value={isUpi}
