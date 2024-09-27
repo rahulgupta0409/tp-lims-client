@@ -27,6 +27,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import PatientProgressBar from "../../components/progressbars/progressBar";
 import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
 import { deepOrange, deepPurple } from "@mui/material/colors";
+import { convertTimestampToDate } from "../../utils/date/dateConvertor";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -193,10 +194,12 @@ const Patients = () => {
                 <Stack
                   id={patient?.patientLabId}
                   key={patient?.patientId}
-                  label={`Name: ${
-                    patient?.firstName + " " + patient?.lastName
-                  }`}
-                  desc={`Age: ${patient?.age} Gender: ${patient?.gender}`}
+                  label={`${patient?.firstName + " " + patient?.lastName}`}
+                  desc={
+                    patient?.age || patient?.gender
+                      ? `${patient?.age} Y/ ${patient?.gender}`
+                      : ``
+                  }
                   component={<PatientProgressBar progress={51} />}
                   value={reportProgress
                     .filter((p) => patient.patientId == p.patientId)
@@ -209,8 +212,8 @@ const Patients = () => {
                           : ``}
                       </span> */}
                       <span>
-                        {patient?.dueAmount > 0
-                          ? `${patient?.createdDate.substring(0, 10)}`
+                        {patient?.createdDate.length > 0
+                          ? convertTimestampToDate(patient.createdDate)
                           : ``}
                       </span>
                     </div>

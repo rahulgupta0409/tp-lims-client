@@ -17,8 +17,8 @@ const Logo = () => {
       <img
         alt="logo"
         className="hidden md:block cursor-pointer"
-        height="50"
-        width="70"
+        height="30"
+        width="50"
         src={OrgLogo}
       />
     </div>
