@@ -9,11 +9,20 @@ import {
 } from "../../apis/MajorTestAPI";
 import { GET_ALL_ORGANIZATIONS } from "../../apis/OrganizationAPI";
 import { GET_ALL_DOCTORS } from "../../apis/DoctorAPI";
-import { Checkbox } from "@mui/material";
-
+import { Avatar, Checkbox, Tooltip } from "@mui/material";
+import { AiFillFacebook } from "react-icons/ai";
 import WheelchairPickupSharpIcon from "@mui/icons-material/WheelchairPickupSharp";
 import EmojiPeopleSharpIcon from "@mui/icons-material/EmojiPeopleSharp";
 import { ADD_NEW_PATIENT } from "../../apis/PatientAPI";
+import BasicButton from "../../components/buttons/BasicButton";
+import Input from "../../components/input/Input";
+import Navbar from "../../components/navbar/Navbar";
+import { FcMoneyTransfer } from "react-icons/fc";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { FaHospitalUser } from "react-icons/fa";
+import Heading from "../../components/headings/Heading";
+import UPIColor from "../../images/UPI-Color.png";
+// import Avatar from "../../components/avatar/Avatar";
 
 const initialState = {
   labTests: [],
@@ -33,7 +42,14 @@ const initialState = {
   age: 0,
   phoneNumber: "",
   emailId: "",
+  gender: "",
 };
+
+const genderOptions = [
+  { value: "Male", label: "Male" },
+  { value: "Female", label: "Female" },
+  { value: "Transgender", label: "Trans" },
+];
 
 const diksha = (state, action) => {
   switch (action.type) {
@@ -91,6 +107,7 @@ const PatientEntry = () => {
     age,
     phoneNumber,
     emailId,
+    gender,
   } = state;
 
   const formRef = useRef(null);
@@ -166,6 +183,14 @@ const PatientEntry = () => {
     });
   };
 
+  const handleGenderChange = (e) => {
+    setState({
+      type: "state",
+      name: "gender",
+      value: e.value,
+    });
+  };
+
   const handleDocChange = (e) => {
     setState({
       type: "state",
@@ -217,9 +242,13 @@ const PatientEntry = () => {
       doctorId,
       labTestIds,
     });
+    // const data = await addPatient;
+    // if (data != null) {
+    //   handleReset();
+    // }
   };
-  console.log("isUpi", isUpi);
-  console.log("isOutSampled", isOutSampled);
+  console.log("state", state);
+
   return (
     <>
       <Navbars />
@@ -227,32 +256,41 @@ const PatientEntry = () => {
       <div className="main-container">
         <div className="majortest-container">
           <div ref={formRef} className="majortest-form">
-            <h2 className="h2">ADD PATIENT</h2>
+            <Heading
+              title="Register Patient"
+              subtitle="Your Diagnosis Starts Here!"
+              center
+            />
+            <div style={{ marginTop: "30px" }}></div>
             <div className="row">
               <div className="span-container">
                 <div className="row">
                   <div className="label">Organization</div>
                   <Select
-                    // defaultValue={[colourOptions[2], colourOptions[3]]}
-                    closeMenuOnSelect={false}
+                    closeMenuOnSelect={true}
                     name="colors"
                     options={organization}
                     value={selectedOrg}
                     onChange={handleOrgChange}
-                    className="custom-input"
-                    classNamePrefix="select"
+                    className="my-select"
+                    classNamePrefix="my-select"
                   />
                 </div>
                 <div className="checkbox-row">
                   <div className="checkbox-label"></div>
-                  <Checkbox
-                    icon={<WheelchairPickupSharpIcon fontSize="large" />}
-                    checkedIcon={<EmojiPeopleSharpIcon fontSize="large" />}
-                    onChange={(e) =>
-                      handleOnChange("isOutSampled", !isOutSampled)
-                    }
-                    value={isOutSampled}
-                  />
+                  <Tooltip
+                    describeChild
+                    title="If the patient collected the samples by themselves."
+                  >
+                    <Checkbox
+                      icon={<FaHospitalUser size={50} />}
+                      checkedIcon={<FaHospitalUser size={50} color="red" />}
+                      onChange={(e) =>
+                        handleOnChange("isOutSampled", !isOutSampled)
+                      }
+                      value={isOutSampled}
+                    />
+                  </Tooltip>
                 </div>
               </div>
             </div>
@@ -316,45 +354,58 @@ const PatientEntry = () => {
             </div>
 
             <div className="row">
-              <div className="label">Email</div>
-              <input
-                className="input"
-                name="emailId"
-                type="text"
-                placeholder="Enter email..."
-                onChange={(e) => {
-                  handleOnChange("emailId", e.target.value);
-                }}
-              />
+              <div className="span-container">
+                <div className="row">
+                  <div className="label">Gender</div>
+                  <Select
+                    closeMenuOnSelect={true}
+                    name="colors"
+                    options={genderOptions}
+                    value={gender.value}
+                    onChange={handleGenderChange}
+                    className="my-select"
+                    classNamePrefix="my-select"
+                  />
+                </div>
+                <div className="row">
+                  <div className="label">Email</div>
+                  <input
+                    className="input"
+                    name="emailId"
+                    type="text"
+                    placeholder="Enter email..."
+                    onChange={(e) => {
+                      handleOnChange("emailId", e.target.value);
+                    }}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="row">
               <div className="label">Referred Doctor</div>
               <Select
-                // defaultValue={[colourOptions[2], colourOptions[3]]}
-                closeMenuOnSelect={false}
+                closeMenuOnSelect={true}
                 name="colors"
                 options={doctors}
                 value={selectedDoctor}
                 onChange={handleDocChange}
-                className="custom-input"
-                classNamePrefix="select"
-                placeholder="Select Referred Doctor..."
+                className="my-select"
+                classNamePrefix="my-select"
               />
             </div>
 
             <div className="row">
               <div className="label">Tests</div>
               <Select
-                // defaultValue={[colourOptions[2], colourOptions[3]]}
                 closeMenuOnSelect={false}
                 isMulti
                 name="colors"
                 options={labTests}
                 value={selectedLabValue}
                 onChange={handleLabTestChange}
-                className="custom-input"
-                classNamePrefix="select"
+                className="my-select"
+                classNamePrefix="my-select"
               />
             </div>
 
@@ -375,20 +426,31 @@ const PatientEntry = () => {
                   />
                 </div>
                 <div className="checkbox-row">
-                  <div className="checkbox-label">UPI</div>
-                  <Checkbox
+                  <div className="checkbox-label"></div>
+                  {/* <Checkbox
                     checked={isUpi}
                     onChange={(e) => handleOnChange("isUpi", !isUpi)}
-                  />
-                  {/* <input
-                    className="checkbox-input"
-                    value={isUpi}
-                    type="checkbox"
-                    onChange={(e) => {
-                      setIsUpi(!isUpi);
-                      console.log("upi", isUpi);
-                    }}
                   /> */}
+
+                  <Tooltip
+                    describeChild
+                    title="If the patient is paying through UPI."
+                  >
+                    <Checkbox
+                      // icon={<FcMoneyTransfer size={50} />}
+                      icon={
+                        <Avatar
+                          src={UPIColor}
+                          sx={{
+                            objectFit: "cover",
+                          }}
+                        />
+                      }
+                      checkedIcon={<GiTakeMyMoney size={50} color="red" />}
+                      onChange={(e) => handleOnChange("isUpi", !isUpi)}
+                      value={isUpi}
+                    />
+                  </Tooltip>
                 </div>
                 <div className="row">
                   <div className="label">Paid Amount</div>
@@ -444,12 +506,8 @@ const PatientEntry = () => {
               </div>
             </div>
 
-            {/* <div className="row"></div> */}
-
             <div className="row">
-              <button className="submin-majortest" onClick={addPatient}>
-                ADD
-              </button>
+              <BasicButton onClick={addPatient} label="ADD" />
             </div>
           </div>
         </div>

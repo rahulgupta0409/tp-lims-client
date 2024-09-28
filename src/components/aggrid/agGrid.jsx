@@ -8,6 +8,7 @@ import { ModuleRegistry } from "@ag-grid-community/core";
 import Navbars from "../navbar/Nav";
 import SimpleBar from "simplebar-react";
 import { GET_ALL_MAJOR_LAB_TESTS } from "../../apis/MajorTestAPI";
+import Container from "../container/Container";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 const GridExample = (props) => {
@@ -103,36 +104,38 @@ const GridExample = (props) => {
   return (
     <>
       <Navbars />
-      <div className="grid-container">
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column-reverse",
-            justifyContent: "center",
-            justifyItems: "center",
-            height: 498,
-            width: "95%",
-          }}
-          className="ag-theme-quartz"
-        >
-          <SimpleBar style={{ maxHeight: "100%" }}></SimpleBar>
-          <AgGridReact
-            rowData={rowData}
-            columnDefs={columnDefs}
-            defaultColDef={defaultColDef}
-            onGridReady={onGridReady}
-            rowSelection="multiple"
-            pagination={true}
-            paginationPageSize={25}
-            paginationPageSizeSelector={[25, 50, 100, 500, 1000]}
-            autoGroupColumnDef={autoGroupColumnDef}
-            scrollbarWidth={5}
-            onRowDoubleClicked={() => console.log("row clicked")}
-            onRowSelected={onRowSelected}
-            onSelectionChanged={onSelectionChanged}
-          />
+      <Container>
+        <div className="grid-container">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column-reverse",
+              justifyContent: "center",
+              justifyItems: "center",
+              height: 470,
+              width: "100%",
+            }}
+            className="ag-theme-quartz"
+          >
+            <SimpleBar style={{ maxHeight: "100%" }}></SimpleBar>
+            <AgGridReact
+              rowData={rowData}
+              columnDefs={columnDefs}
+              defaultColDef={defaultColDef}
+              onGridReady={onGridReady}
+              rowSelection="multiple"
+              pagination={true}
+              paginationPageSize={25}
+              paginationPageSizeSelector={[25, 50, 100, 500, 1000]}
+              autoGroupColumnDef={autoGroupColumnDef}
+              scrollbarWidth={5}
+              onRowDoubleClicked={() => console.log("row clicked")}
+              onRowSelected={onRowSelected}
+              onSelectionChanged={onSelectionChanged}
+            />
+          </div>
         </div>
-      </div>
+      </Container>
     </>
   );
 };

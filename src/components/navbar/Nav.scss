@@ -1,10 +1,11 @@
 .account-menu-nav-container {
-  margin-right: 10px;
+  // margin-right: 10px;
 }
 
 .navbar-container {
-  position: sticky;
+  // position: sticky;
+  position: relative;
   top: 0;
-  z-index: 3;
+  z-index: 999;
   // background-color: aliceblue;
 }

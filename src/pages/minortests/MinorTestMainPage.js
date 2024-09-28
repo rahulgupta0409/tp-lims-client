@@ -13,6 +13,7 @@ import {
   DELETE_MINOR_LAB_TEST_BY_ID,
   GET_ALL_MINOR_LAB_TESTS,
 } from "../../apis/MinorTestAPI";
+import Search from "../../components/search/search";
 
 const MinorTestMainPage = () => {
   const [items, setItems] = useState([]);
@@ -158,6 +159,7 @@ const MinorTestMainPage = () => {
                 onChange={onSearch}
               />
             </Form>
+            {/* <Search /> */}
           </div>
           <div>
             <IconButton variant="secondary" onClick={handleAddModalOpen}>

@@ -19,6 +19,13 @@ import Majortests from "./pages/majortests/majortests";
 import GridExample from "./components/aggrid/agGrid";
 import PatientEntry from "./pages/patiententry/patiententry";
 import MainDiv from "./pages/main/mainPage";
+import Modal from "./components/modals/Modals";
+import BackToTopButton from "./components/BackToTopButton";
+import Stack from "./components/stack/Stack";
+import Patients from "./pages/patients/patients";
+import TestEntry from "./components/test-entry/testEntry";
+import MajorTestReport from "./components/test-entry/majorTestReport";
+import MainTestEntry from "./components/test-entry/mainTestEntry";
 import ErrorBoundary from "./components/errorBoundary";
 
 function App() {
@@ -29,7 +36,8 @@ function App() {
         <Router>
           <div>
             {/* <Navbars /> */}
-            <Routes>
+            <BackToTopButton />
+          <Routes>
               <Route path="/signup" element={<Signup />}></Route>
               <Route path="/" element={<Login />}></Route>
               <Route path="/organization" element={<Organization />}></Route>
@@ -40,7 +48,20 @@ function App() {
               <Route path="/table" element={<Tables />}></Route>
               <Route path="/patient" element={<PatientEntry />}></Route>
               <Route path="*" element={<Navigate to="/" replace />}></Route>
-              <Route path="/rahul" element={<MainDiv />}></Route>
+              <Route path="/help" element={<Patients />}></Route>
+            <Route path="/h" element={<MainTestEntry />}></Route>
+            <Route
+              path="/rahul"
+              element={
+                // <Modal
+                //   isOpen={true}
+                //   title="Login"
+                //   actionLabel="Continue"
+                //   onClose={() => console.log("close")}
+                // />
+                <MainDiv />
+              }
+            ></Route>
             </Routes>
           </div>
         </Router>
