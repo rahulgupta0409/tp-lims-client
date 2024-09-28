@@ -9,15 +9,16 @@ const MainTestEntry = () => {
     <>
       <div className="main-test-entry-main-container">
         <TestHeader />
-
-        <MajorTestReport />
-        <TestEntry />
-        <TestEntry />
-        <TestEntry />
-        <TestEntry />
-        <MajorTestReport />
-        <TestEntry />
-        <TestEntry />
+        <div className="content">
+          <MajorTestReport />
+          <TestEntry />
+          <TestEntry />
+          <TestEntry />
+          <TestEntry />
+          <MajorTestReport />
+          <TestEntry />
+          <TestEntry />
+        </div>
       </div>
     </>
   );
