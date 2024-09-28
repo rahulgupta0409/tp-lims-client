@@ -23,6 +23,9 @@ import Modal from "./components/modals/Modals";
 import BackToTopButton from "./components/BackToTopButton";
 import Stack from "./components/stack/Stack";
 import Patients from "./pages/patients/patients";
+import TestEntry from "./components/test-entry/testEntry";
+import MajorTestReport from "./components/test-entry/majorTestReport";
+import MainTestEntry from "./components/test-entry/mainTestEntry";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -45,6 +48,7 @@ function App() {
             <Route path="/patient" element={<PatientEntry />}></Route>
             <Route path="*" element={<Navigate to="/" replace />}></Route>
             <Route path="/help" element={<Patients />}></Route>
+            <Route path="/h" element={<MainTestEntry />}></Route>
             <Route
               path="/rahul"
               element={

@@ -28,6 +28,7 @@ import PatientProgressBar from "../../components/progressbars/progressBar";
 import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
 import { deepOrange, deepPurple } from "@mui/material/colors";
 import { convertTimestampToDate } from "../../utils/date/dateConvertor";
+import MainTestEntry from "../../components/test-entry/mainTestEntry";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
