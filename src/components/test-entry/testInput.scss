@@ -1,0 +1,18 @@
+.test-input {
+  padding: 8px;
+  border-radius: 10px;
+  outline: none;
+  background-color: #fffbf5;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: -0.8px;
+  word-spacing: 1.8px;
+  font-weight: 400;
+  font-style: normal;
+  border: 2px solid white;
+}
+.test-input:focus {
+  border-color: #cdc1ff;
+  background-color: #f5efff;
+  box-shadow: 0 0 5px 2px #cdc1ff;
+}
