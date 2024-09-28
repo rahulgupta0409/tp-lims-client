@@ -19,30 +19,32 @@ import Majortests from "./pages/majortests/majortests";
 import GridExample from "./components/aggrid/agGrid";
 import PatientEntry from "./pages/patiententry/patiententry";
 import MainDiv from "./pages/main/mainPage";
+import ErrorBoundary from "./components/errorBoundary";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
   return (
     <div style={{ width: "100%", height: "100%" }}>
-      <Router>
-        <div>
-          {/* <Navbars /> */}
-          <Routes>
-            <Route path="/signup" element={<Signup />}></Route>
-            <Route path="/" element={<Login />}></Route>
-
-            <Route path="/organization" element={<Organization />}></Route>
-            <Route path="/home" element={<GridExample />}></Route>
-            <Route path="/minor" element={<Minortests />}></Route>
-            <Route path="/helper" element={<Majortests />}></Route>
-            <Route path="/minortests" element={<MinorTestMainPage />}></Route>
-            <Route path="/table" element={<Tables />}></Route>
-            <Route path="/patient" element={<PatientEntry />}></Route>
-            <Route path="*" element={<Navigate to="/" replace />}></Route>
-            <Route path="/rahul" element={<MainDiv />}></Route>
-          </Routes>
-        </div>
-      </Router>
+      <ErrorBoundary>
+        <Router>
+          <div>
+            {/* <Navbars /> */}
+            <Routes>
+              <Route path="/signup" element={<Signup />}></Route>
+              <Route path="/" element={<Login />}></Route>
+              <Route path="/organization" element={<Organization />}></Route>
+              <Route path="/home" element={<GridExample />}></Route>
+              <Route path="/minor" element={<Minortests />}></Route>
+              <Route path="/helper" element={<Majortests />}></Route>
+              <Route path="/minortests" element={<MinorTestMainPage />}></Route>
+              <Route path="/table" element={<Tables />}></Route>
+              <Route path="/patient" element={<PatientEntry />}></Route>
+              <Route path="*" element={<Navigate to="/" replace />}></Route>
+              <Route path="/rahul" element={<MainDiv />}></Route>
+            </Routes>
+          </div>
+        </Router>
+      </ErrorBoundary>
     </div>
   );
 }
