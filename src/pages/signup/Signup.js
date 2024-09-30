@@ -3,12 +3,14 @@ import "./Signup.scss";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import Logo from "../../images/Tilak_Pathology_PNG_Logo-removebg.png";
+import Heading from "../../components/headings/Heading";
 
 const Signup = () => {
   const [emailId, setEmailId] = useState("");
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
   const [password, setPassWord] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
 
@@ -25,6 +27,9 @@ const Signup = () => {
     if (param === "password") {
       setPassWord(value);
     }
+    if (param === "confirmPassword") {
+      setConfirmPassword(value);
+    }
   };
 
   const handleOnClick = async (e) => {
@@ -37,6 +42,7 @@ const Signup = () => {
         userName,
         fullName,
         password,
+        confirmPassword,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -48,16 +54,19 @@ const Signup = () => {
         setUserName("");
         setFullName("");
         setPassWord("");
+        setConfirmPassword("");
       });
   };
 
   return (
     <div className="signup-container">
-      <form className="signup-form">
-        <div style={{ display: "flex" }}>
-          <h3 className="h2" style={{ fontSmooth: "#1A2027" }}>
-            SIGNUP
-          </h3>
+      <div className="signup-form-container">
+        <div style={{ display: "flex", gap: "4px" }}>
+          <Heading
+            title="Welcome to Tilak"
+            subtitle="Please create an account from here!"
+            center
+          />
           <img
             src={Logo}
             style={{
@@ -68,10 +77,10 @@ const Signup = () => {
             alt="Logo"
           />
         </div>
-        <div className="row">
-          <div style={{ fontSize: "18px" }}>Email</div>
+        <div className="signup-row">
+          <div className="signup-label">Email</div>
           <input
-            className="input"
+            className="signup-input"
             name="emailId"
             type="email"
             placeholder="Enter email..."
@@ -81,10 +90,10 @@ const Signup = () => {
             }}
           />
         </div>
-        <div className="row">
-          <div style={{ fontSize: "18px" }}>Username</div>
+        <div className="signup-row">
+          <div className="signup-label">Username</div>
           <input
-            className="input"
+            className="signup-input"
             name="userName"
             type="text"
             placeholder="Enter username..."
@@ -94,10 +103,10 @@ const Signup = () => {
             }}
           />
         </div>
-        <div className="row">
-          <div style={{ fontSize: "18px" }}>Full Name</div>
+        <div className="signup-row">
+          <div className="signup-label">Full Name</div>
           <input
-            className="input"
+            className="signup-input"
             name="fullName"
             type="text"
             placeholder="Enter name..."
@@ -107,25 +116,38 @@ const Signup = () => {
             }}
           />
         </div>
-        <div className="row">
-          <div style={{ fontSize: "18px" }}>Password</div>
+        <div className="signup-row">
+          <div className="signup-label">Password</div>
           <input
-            className="input"
+            className="signup-input"
             name="password"
-            type="password"
-            placeholder="Enter password..."
+            type="text"
+            placeholder="Choose a password..."
             value={password}
             onChange={(e) => {
               handleOnChange("password", e.target.value);
             }}
           />
         </div>
-        <div className="row">
+        <div className="signup-row">
+          <div className="signup-label">Confirm Password</div>
+          <input
+            className="signup-input"
+            name="confirmPassword"
+            type="text"
+            placeholder="Confirm Password..."
+            value={confirmPassword}
+            onChange={(e) => {
+              handleOnChange("confirmPassword", e.target.value);
+            }}
+          />
+        </div>
+        <div className="signup-row">
           <Button className="submin-signup" onClick={handleOnClick}>
             SIGNUP
           </Button>
         </div>
-        <div
+        {/* <div
           style={{
             display: "flex",
             justifyContent: "start",
@@ -133,8 +155,35 @@ const Signup = () => {
           }}
         >
           <Button onClick={() => navigate("/")}>Already have an account</Button>
+        </div> */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: "20px",
+            width: "100%",
+          }}
+        >
+          <div
+            style={{ fontFamily: "Product Sans" }}
+          >{`Already have an account?`}</div>
+          <Button
+            sx={{
+              background: "none",
+              justifyContent: "center",
+              alignItems: "center",
+              fontFamily: "Product Sans",
+              fontSize: "small",
+              borderRadius: "30px",
+              fontVariant: "normal",
+            }}
+            onClick={() => navigate("/")}
+          >
+            Login
+          </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

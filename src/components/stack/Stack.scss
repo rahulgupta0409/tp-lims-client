@@ -3,17 +3,18 @@
   padding: 10px;
   display: flex;
   justify-content: space-around;
-  border: 1px solid #ccc;
+  background: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
+  // border: 1px solid #601d1d;
+  box-shadow: 0 0 5px 2px #cdc1ff;
   border-radius: 10px;
-  background-color: #eef1ff;
+  // background-color: #eef1ff;
   align-items: center;
 
   .stack-id-value {
     padding: 5px;
     width: 25px;
     margin-right: 0.625rem;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-family: "Product Sans", Arial, sans-serif;
     font-weight: 1000;
   }
   .stack-icon {
@@ -47,8 +48,7 @@
     font-size: small;
     margin-left: 2%;
     min-width: 12.375rem;
-    font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-      "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+    font-family: "Product Sans", Arial, sans-serif;
     font-weight: 1000;
   }
 

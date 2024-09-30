@@ -81,7 +81,7 @@ const Login = () => {
   return (
     <div>
       <div className="login-container">
-        <form className="login-form">
+        <div className="login-form-container">
           {/* <h2 className="h2">LOGIN</h2> */}
           <Heading
             title="Welcome Back"
@@ -124,13 +124,31 @@ const Login = () => {
           <div
             style={{
               display: "flex",
-              justifyContent: "start",
+              justifyContent: "center",
+              alignItems: "center",
               marginTop: "20px",
+              width: "100%",
             }}
           >
-            <Button onClick={() => navigate("/signup")}>Signup</Button>
+            <div
+              style={{ fontFamily: "Product Sans" }}
+            >{`Don't have account?`}</div>
+            <Button
+              sx={{
+                background: "none",
+                justifyContent: "center",
+                alignItems: "center",
+                fontFamily: "Product Sans",
+                fontSize: "small",
+                borderRadius: "30px",
+                fontVariant: "normal",
+              }}
+              onClick={() => navigate("/signup")}
+            >
+              Sign up
+            </Button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

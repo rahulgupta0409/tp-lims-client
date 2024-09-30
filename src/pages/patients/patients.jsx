@@ -43,6 +43,7 @@ const Patients = () => {
   const [reportProgress, setReportProgress] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [query, setQuery] = useState("");
+  const [patientInfo, setPatientInfo] = useState(false);
 
   const reverseString = (str) => [...str].reverse().join("");
 
@@ -79,6 +80,10 @@ const Patients = () => {
     asyncFn();
   }, [query]);
 
+  const handlePatiestsInfoOnClick = () => {
+    setPatientInfo(!patientInfo);
+  };
+
   useEffect(() => {
     const asyncFn = async () => {
       if (query.length === 0) {
@@ -107,16 +112,51 @@ const Patients = () => {
       <Navbars />
 
       <div className="search-calender-main-container">
-        <div
-          style={{
-            backgroundColor: "#f2f4f6",
-            width: "20%",
-            borderRadius: "30px",
-            padding: "5px",
-          }}
-        >
-          <Heading title="Patients" subtitle="All patients are here!" center />
-        </div>
+        {patientInfo ? (
+          <>
+            <div
+              style={{
+                background: "linear-gradient(90deg, #cfd9df 0%, #e2ebf0 100%)",
+                boxShadow: "0 0 5px 2px #9796f0",
+                width: "20%",
+                borderRadius: "20px",
+                padding: "5px",
+                cursor: "pointer",
+                transition: "background 2s ease",
+              }}
+            >
+              <Heading
+                onClick={handlePatiestsInfoOnClick}
+                title={`Patients: ${patients.length}`}
+                subtitle={`Total`}
+                center
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <div
+              style={{
+                backgroundColor: "#e2ebf0",
+                // background: "linear-gradient(90deg, #e2ebf0 0%, #e2ebf0 100%)",
+                boxShadow: "0 0 5px 2px #9796f0",
+                width: "20%",
+                borderRadius: "20px",
+                padding: "5px",
+                cursor: "pointer",
+                transition: "background 3s ease",
+              }}
+            >
+              <Heading
+                onClick={handlePatiestsInfoOnClick}
+                title="Patients"
+                subtitle="All patients are here!"
+                center
+              />
+            </div>
+          </>
+        )}
+
         <div style={{ width: "40%" }}>
           <Search
             component={
@@ -139,9 +179,9 @@ const Patients = () => {
             display: "flex",
             justifyContent: "space-around",
             alignItems: "center",
-            backgroundColor: "#f2f4f6",
+            backgroundColor: "#e2ebf0",
             width: "25%",
-            borderRadius: "30px",
+            borderRadius: "20px",
             padding: "10px",
             cursor: "pointer",
           }}
@@ -151,7 +191,12 @@ const Patients = () => {
             " - " +
             dateTimeValue[0]?.endDate.toString().substring(0, 11)}
 
-          <BsCalendar2DateFill style={{ cursor: "pointer" }} size={50} />
+          <BsCalendar2DateFill
+            style={{
+              cursor: "pointer",
+            }}
+            size={50}
+          />
         </div>
       </div>
       <Modal
@@ -171,10 +216,22 @@ const Patients = () => {
             showSelectionPreview={true}
             moveRangeOnFirstSelection={false}
             months={1}
+            date
             ranges={dateTimeValue}
             direction="horizontal"
             preventSnapRefocus={true}
             calendarFocus="backwards"
+            //wrapperClassName="datePicker"
+            // selected={startDate}
+            // onChange={(date) => setStartDate(date)}
+            // showTimeSelect
+            // minDate={new Date()}
+            // minTime={minTime}
+            // maxTime={new Date(0, 0, 0, 17)} // 5:00pm
+            // dateFormat="dd/MM/yyyy hh:mm a"
+            // timeFormat="hh:mm a"
+            // timeIntervals={30}
+            // customInput={<CustomInput />}
           />
         </Modal.Body>
       </Modal>
@@ -183,9 +240,8 @@ const Patients = () => {
         style={{
           height: "100%",
           backgroundColor: "#fafafa",
-          padding: "25px 5px",
           borderRadius: "10px",
-          margin: "0 7px",
+          background: "linear-gradient(90deg, #667eea 0%, #764ba2 100%)",
         }}
       >
         <div className="patient-list-container">
@@ -194,6 +250,7 @@ const Patients = () => {
               return (
                 <Stack
                   id={patient?.patientLabId}
+                  patient={patient ? patient : {}}
                   key={patient?.patientId}
                   label={`${patient?.firstName + " " + patient?.lastName}`}
                   desc={

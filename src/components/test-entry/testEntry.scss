@@ -6,9 +6,11 @@
   justify-content: space-between;
   border: 1px solid #ccc;
   border-radius: 10px;
-  background-color: #eef1ff;
+  // background-color: #eef1ff;
   align-items: center;
   width: 100%;
+  box-shadow: 0 0 5px 2px #cdc1ff;
+  background: linear-gradient(90deg, #f5f7fa 0%, #c3cfe2 100%);
 
   .test-entry-idx {
     padding: 5px;

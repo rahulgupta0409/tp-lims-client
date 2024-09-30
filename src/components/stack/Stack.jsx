@@ -2,6 +2,7 @@ import React from "react";
 import "./Stack.scss";
 import SvgIcon from "@mui/material/SvgIcon";
 import { LinearProgress, Tooltip } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function HomeIcon(props) {
   return (
@@ -21,13 +22,26 @@ const Stack = ({
   value = 50,
   component,
   entity,
+  onDoubleClick,
+  patient,
+  onClick,
 }) => {
+  const navigate = useNavigate();
+
+  const handleLabelDoubleClick = () => {
+    navigate("/h", { state: patient });
+  };
+
   return (
     <div className="custom-stack" key={idx}>
       <div className="stack-id-value">{id}</div>
-      <div className="stack-icon">{icon}</div>
+      <div className="stack-icon" onDoubleClick={onDoubleClick}>
+        {icon}
+      </div>
       <div className="stack-details">
-        <span className="stack-label">{label}</span>
+        <span className="stack-label" onClick={handleLabelDoubleClick}>
+          {label}
+        </span>
         <span className="stack-desc">{desc}</span>
       </div>
       <div className="stack-entity-child">{entity}</div>
