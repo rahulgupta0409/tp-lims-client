@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-const TestInput = ({ initialState }) => {
+const TestInput = ({ initialState, disabled = false }) => {
   const [state, setState] = useState(initialState);
 
   const handleOnChange = (e) => {
@@ -20,6 +20,7 @@ const TestInput = ({ initialState }) => {
             className="test-input"
             value={state}
             onChange={handleOnChange}
+            disabled={disabled}
           />
         </Tooltip>
         <Tooltip title={`Default Value of the field.`} arrow>
@@ -37,6 +38,7 @@ const TestInput = ({ initialState }) => {
           className="test-input"
           value={state}
           onChange={handleOnChange}
+          disabled={disabled}
         />
       </Tooltip>
       {state.length == 0 ? (

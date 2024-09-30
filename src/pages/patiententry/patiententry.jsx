@@ -253,262 +253,252 @@ const PatientEntry = () => {
     <>
       <Navbars />
 
-      <div className="main-container">
-        <div className="majortest-container">
-          <div ref={formRef} className="majortest-form">
-            <Heading
-              title="Register Patient"
-              subtitle="Your Diagnosis Starts Here!"
-              center
+      <div className="patient-entry-container">
+        <div ref={formRef} className="patient-entry-form-container">
+          <Heading
+            title="Register Patient"
+            subtitle="Your Diagnosis Starts Here!"
+            center
+          />
+          <div style={{ marginTop: "30px" }}></div>
+          <div className="patient-row">
+            <div className="span-container">
+              <div className="patient-row">
+                <div className="patient-entry-label">Organization</div>
+                <Select
+                  closeMenuOnSelect={true}
+                  name="colors"
+                  options={organization}
+                  value={selectedOrg}
+                  onChange={handleOrgChange}
+                  className="my-select"
+                  classNamePrefix="my-select"
+                />
+              </div>
+              <div className="checkbox-row">
+                <div className="checkbox-label"></div>
+                <Tooltip
+                  describeChild
+                  title="If the patient collected the samples by themselves."
+                >
+                  <Checkbox
+                    icon={<FaHospitalUser size={50} />}
+                    checkedIcon={<FaHospitalUser size={50} color="red" />}
+                    onChange={(e) =>
+                      handleOnChange("isOutSampled", !isOutSampled)
+                    }
+                    value={isOutSampled}
+                  />
+                </Tooltip>
+              </div>
+            </div>
+          </div>
+          <div className="patient-row">
+            <div className="span-container">
+              <div className="patient-row">
+                <div className="patient-entry-label">First Name</div>
+                <input
+                  className="input"
+                  name="firstName"
+                  type="text"
+                  placeholder="Enter firstname..."
+                  value={firstName}
+                  onChange={(e) => {
+                    handleOnChange("firstName", e.target.value);
+                  }}
+                />
+              </div>
+              <div className="patient-row">
+                <div className="patient-entry-label">Last Name</div>
+                <input
+                  className="input"
+                  name="lastName"
+                  type="text"
+                  placeholder="Enter lastname..."
+                  onChange={(e) => {
+                    handleOnChange("lastName", e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="patient-row">
+            <div className="span-container">
+              <div className="patient-row">
+                <div className="patient-entry-label">Age</div>
+                <input
+                  className="input"
+                  name="age"
+                  type="number"
+                  placeholder="Enter age..."
+                  onChange={(e) => {
+                    handleOnChange("age", e.target.value);
+                  }}
+                />
+              </div>
+              <div className="patient-row">
+                <div className="patient-entry-label">Contact</div>
+                <input
+                  className="input"
+                  name="phoneNumber"
+                  type="text"
+                  placeholder="Enter phone number..."
+                  onChange={(e) => {
+                    handleOnChange("phoneNumber", e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="patient-row">
+            <div className="span-container">
+              <div className="patient-row">
+                <div className="patient-entry-label">Gender</div>
+                <Select
+                  closeMenuOnSelect={true}
+                  name="colors"
+                  options={genderOptions}
+                  value={gender.value}
+                  onChange={handleGenderChange}
+                  className="my-select"
+                  classNamePrefix="my-select"
+                />
+              </div>
+              <div className="patient-row">
+                <div className="patient-entry-label">Email</div>
+                <input
+                  className="input"
+                  name="emailId"
+                  type="text"
+                  placeholder="Enter email..."
+                  onChange={(e) => {
+                    handleOnChange("emailId", e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="patient-row">
+            <div className="patient-entry-label">Referred Doctor</div>
+            <Select
+              closeMenuOnSelect={true}
+              name="colors"
+              options={doctors}
+              value={selectedDoctor}
+              onChange={handleDocChange}
+              className="my-select"
+              classNamePrefix="my-select"
             />
-            <div style={{ marginTop: "30px" }}></div>
-            <div className="row">
-              <div className="span-container">
-                <div className="row">
-                  <div className="label">Organization</div>
-                  <Select
-                    closeMenuOnSelect={true}
-                    name="colors"
-                    options={organization}
-                    value={selectedOrg}
-                    onChange={handleOrgChange}
-                    className="my-select"
-                    classNamePrefix="my-select"
-                  />
-                </div>
-                <div className="checkbox-row">
-                  <div className="checkbox-label"></div>
-                  <Tooltip
-                    describeChild
-                    title="If the patient collected the samples by themselves."
-                  >
-                    <Checkbox
-                      icon={<FaHospitalUser size={50} />}
-                      checkedIcon={<FaHospitalUser size={50} color="red" />}
-                      onChange={(e) =>
-                        handleOnChange("isOutSampled", !isOutSampled)
-                      }
-                      value={isOutSampled}
-                    />
-                  </Tooltip>
-                </div>
+          </div>
+
+          <div className="patient-row">
+            <div className="patient-entry-label">Tests</div>
+            <Select
+              closeMenuOnSelect={false}
+              isMulti
+              name="colors"
+              options={labTests}
+              value={selectedLabValue}
+              onChange={handleLabTestChange}
+              className="my-select"
+              classNamePrefix="my-select"
+            />
+          </div>
+
+          <div className="patient-row">
+            <div className="span-container">
+              <div className="patient-row">
+                <div className="patient-entry-label">Total Amount</div>
+                <input
+                  className="input"
+                  name="totalAmount"
+                  type="text"
+                  value={totalAmount}
+                  placeholder="Total Amount"
+                  onChange={(e) => {
+                    handleOnChange("totalAmount", e.target.value);
+                  }}
+                  disabled
+                />
               </div>
-            </div>
-            <div className="row">
-              <div className="span-container">
-                <div className="row">
-                  <div className="label">First Name</div>
-                  <input
-                    className="input"
-                    name="firstName"
-                    type="text"
-                    placeholder="Enter firstname..."
-                    value={firstName}
-                    onChange={(e) => {
-                      handleOnChange("firstName", e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="row">
-                  <div className="label">Last Name</div>
-                  <input
-                    className="input"
-                    name="lastName"
-                    type="text"
-                    placeholder="Enter lastname..."
-                    onChange={(e) => {
-                      handleOnChange("lastName", e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="span-container">
-                <div className="row">
-                  <div className="label">Age</div>
-                  <input
-                    className="input"
-                    name="age"
-                    type="number"
-                    placeholder="Enter age..."
-                    onChange={(e) => {
-                      handleOnChange("age", e.target.value);
-                    }}
-                  />
-                </div>
-                <div className="row">
-                  <div className="label">Contact</div>
-                  <input
-                    className="input"
-                    name="phoneNumber"
-                    type="text"
-                    placeholder="Enter phone number..."
-                    onChange={(e) => {
-                      handleOnChange("phoneNumber", e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="span-container">
-                <div className="row">
-                  <div className="label">Gender</div>
-                  <Select
-                    closeMenuOnSelect={true}
-                    name="colors"
-                    options={genderOptions}
-                    value={gender.value}
-                    onChange={handleGenderChange}
-                    className="my-select"
-                    classNamePrefix="my-select"
-                  />
-                </div>
-                <div className="row">
-                  <div className="label">Email</div>
-                  <input
-                    className="input"
-                    name="emailId"
-                    type="text"
-                    placeholder="Enter email..."
-                    onChange={(e) => {
-                      handleOnChange("emailId", e.target.value);
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="label">Referred Doctor</div>
-              <Select
-                closeMenuOnSelect={true}
-                name="colors"
-                options={doctors}
-                value={selectedDoctor}
-                onChange={handleDocChange}
-                className="my-select"
-                classNamePrefix="my-select"
-              />
-            </div>
-
-            <div className="row">
-              <div className="label">Tests</div>
-              <Select
-                closeMenuOnSelect={false}
-                isMulti
-                name="colors"
-                options={labTests}
-                value={selectedLabValue}
-                onChange={handleLabTestChange}
-                className="my-select"
-                classNamePrefix="my-select"
-              />
-            </div>
-
-            <div className="row">
-              <div className="span-container">
-                <div className="row">
-                  <div className="label">Total Amount</div>
-                  <input
-                    className="input"
-                    name="totalAmount"
-                    type="text"
-                    value={totalAmount}
-                    placeholder="Total Amount"
-                    onChange={(e) => {
-                      handleOnChange("totalAmount", e.target.value);
-                    }}
-                    disabled
-                  />
-                </div>
-                <div className="checkbox-row">
-                  <div className="checkbox-label"></div>
-                  {/* <Checkbox
+              <div className="checkbox-row">
+                <div className="checkbox-label"></div>
+                {/* <Checkbox
                     checked={isUpi}
                     onChange={(e) => handleOnChange("isUpi", !isUpi)}
                   /> */}
 
-                  <Tooltip
-                    describeChild
-                    title="If the patient is paying through UPI."
-                  >
-                    <Checkbox
-                      // icon={<FcMoneyTransfer size={50} />}
-                      icon={
-                        <Avatar
-                          src={UPIColor}
-                          sx={{
-                            objectFit: "cover",
-                          }}
-                        />
-                      }
-                      checkedIcon={<GiTakeMyMoney size={50} color="red" />}
-                      onChange={(e) => handleOnChange("isUpi", !isUpi)}
-                      value={isUpi}
-                    />
-                  </Tooltip>
-                </div>
-                <div className="row">
-                  <div className="label">Paid Amount</div>
-                  <input
-                    className="input"
-                    name="paidAmount"
-                    type="text"
-                    placeholder="Paid Amount"
-                    onChange={(e) =>
-                      setState({
-                        type: "state",
-                        name: "paidAmount",
-                        value: e.target.value,
-                      })
-                    }
+                <Tooltip
+                  describeChild
+                  title="If the patient is paying through UPI."
+                >
+                  <Checkbox
+                    icon={<FcMoneyTransfer size={50} />}
+                    checkedIcon={<GiTakeMyMoney size={50} color="red" />}
+                    onChange={(e) => handleOnChange("isUpi", !isUpi)}
+                    value={isUpi}
                   />
-                </div>
+                </Tooltip>
+              </div>
+              <div className="patient-row">
+                <div className="patient-entry-label">Paid Amount</div>
+                <input
+                  className="input"
+                  name="paidAmount"
+                  type="text"
+                  placeholder="Paid Amount"
+                  onChange={(e) =>
+                    setState({
+                      type: "state",
+                      name: "paidAmount",
+                      value: e.target.value,
+                    })
+                  }
+                />
               </div>
             </div>
+          </div>
 
-            <div className="row">
-              <div className="span-container">
-                <div className="row">
-                  <div className="label">Discount</div>
-                  <input
-                    className="input"
-                    name="discount"
-                    type="text"
-                    placeholder="Discount"
-                    onChange={(e) =>
-                      setState({
-                        type: "state",
-                        name: "discount",
-                        value: e.target.value,
-                      })
-                    }
-                  />
-                </div>
-                <div className="row">
-                  <div className="label">Due Amount</div>
-                  <input
-                    className="input"
-                    name="dueAmount"
-                    type="text"
-                    placeholder="Due"
-                    value={dueAmount}
-                    onChange={(e) => {
-                      handleOnChange("dueAmount", e.target.value);
-                    }}
-                    disabled
-                  />
-                </div>
+          <div className="patient-row">
+            <div className="span-container">
+              <div className="patient-row">
+                <div className="patient-entry-label">Discount</div>
+                <input
+                  className="input"
+                  name="discount"
+                  type="text"
+                  placeholder="Discount"
+                  onChange={(e) =>
+                    setState({
+                      type: "state",
+                      name: "discount",
+                      value: e.target.value,
+                    })
+                  }
+                />
+              </div>
+              <div className="patient-row">
+                <div className="patient-entry-label">Due Amount</div>
+                <input
+                  className="input"
+                  name="dueAmount"
+                  type="text"
+                  placeholder="Due"
+                  value={dueAmount}
+                  onChange={(e) => {
+                    handleOnChange("dueAmount", e.target.value);
+                  }}
+                  disabled
+                />
               </div>
             </div>
+          </div>
 
-            <div className="row">
-              <BasicButton onClick={addPatient} label="ADD" />
-            </div>
+          <div className="patient-row">
+            <BasicButton onClick={addPatient} label="Add Patient" />
           </div>
         </div>
       </div>

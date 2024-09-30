@@ -90,8 +90,8 @@ const UserMenu = ({ currentUser }) => {
               </>
             ) : (
               <>
-                <MenuItem label="Login" />
-                <MenuItem label="Sign up" />
+                <MenuItem label="Login" onClick={() => navigate("/")} />
+                <MenuItem label="Sign up" onClick={() => navigate("/signup")} />
               </>
             )}
           </div>

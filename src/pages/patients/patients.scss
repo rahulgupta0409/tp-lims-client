@@ -1,5 +1,6 @@
 .date-time-component {
   background-color: white;
+
   justify-content: end;
   align-items: end;
 }
@@ -8,6 +9,7 @@
   margin: 0 2%;
   height: 100%;
   min-height: 21.1rem;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
 }
 
 .modal-dialog {

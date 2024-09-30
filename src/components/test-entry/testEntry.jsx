@@ -12,20 +12,36 @@ const TestEntry = ({
   unit = "mm",
   onDragStart,
   onClick,
+  isAdmin = false,
 }) => {
   return (
     <div className="test-entry-container" key={idx}>
-      {/* <div className="test-entry-idx">{idx}</div> */}
       <div className="test-entry-name">{name}</div>
       <div className="test-entry-value">
         <TestInput initialState={value} />
       </div>
-      <div className="test-entry-range">
-        <TestInput initialState={`${range} in unit ${unit}`} />
-      </div>
-      <div className="test-entry-remarks">
-        <TestInput initialState={state} />
-      </div>
+      {isAdmin === false ? (
+        <>
+          <div className="test-entry-range">
+            <TestInput
+              initialState={`${range} in unit ${unit}`}
+              disabled={true}
+            />
+          </div>
+          <div className="test-entry-remarks">
+            <TestInput initialState={state} disabled={true} />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="test-entry-range">
+            <TestInput initialState={`${range} in unit ${unit}`} />
+          </div>
+          <div className="test-entry-remarks">
+            <TestInput initialState={state} />
+          </div>
+        </>
+      )}
     </div>
   );
 };

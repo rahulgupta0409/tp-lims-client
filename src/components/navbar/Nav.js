@@ -71,20 +71,20 @@ function Navbars() {
                 navbarScroll
               >
                 <div
-                  className="hidden md:block text-lg font-semibold py-3 px-4 rounded hover:bg-neutral-100 transition cursor-pointer"
+                  className="font-product hidden md:block text-lg font-semibold py-3 px-4 rounded hover:bg-neutral-100 transition cursor-pointer"
                   onClick={() => navigate("/home")}
                 >
                   Home
                 </div>
 
                 <div
-                  className="hidden md:block text-lg font-semibold py-3 px-4 rounded hover:bg-neutral-100 transition cursor-pointer"
+                  className="font-product hidden md:block text-lg font-semibold py-3 px-4 rounded hover:bg-neutral-100 transition cursor-pointer"
                   onClick={() => navigate("/patient")}
                 >
                   Patients
                 </div>
 
-                <div className="hidden md:block text-lg font-semibold py-2 px-4 rounded hover:bg-neutral-100 transition cursor-pointer">
+                <div className="font-product hidden md:block text-lg font-semibold py-2 px-4 rounded hover:bg-neutral-100 transition cursor-pointer">
                   <NavDropdown title="Other" id="navbarScrollingDropdown">
                     <NavDropdown.Item onClick={handleOnClickMajorTest}>
                       Major Tests
@@ -97,7 +97,7 @@ function Navbars() {
                       // href="/organization"
                       onClick={handleOnClickOrganization}
                     >
-                      Add Organization
+                      <div className="font-product">Add Organization</div>
                     </NavDropdown.Item>
                   </NavDropdown>
                 </div>
@@ -105,7 +105,7 @@ function Navbars() {
               Link
             </Nav.Link> */}
               </Nav>
-              <Form className="d-flex">
+              <Form className="font-product d-flex">
                 {/* <Form.Control
                 type="search"
                 placeholder="Search"
