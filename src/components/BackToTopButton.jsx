@@ -22,9 +22,9 @@ const BackToTopButton = () => {
     });
   };
   return (
-    <div>
+    <>
       {backToTopButton && (
-        <Tooltip describeChild title="Click here to go to the top">
+        <Tooltip title="Click here to go to the top">
           <FaArrowCircleUp
             onClick={scrollUp}
             style={{
@@ -42,7 +42,7 @@ const BackToTopButton = () => {
           />
         </Tooltip>
       )}
-    </div>
+    </>
   );
 };
 

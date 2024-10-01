@@ -29,7 +29,7 @@ const Stack = ({
   const navigate = useNavigate();
 
   const handleLabelDoubleClick = () => {
-    navigate("/h", { state: patient });
+    navigate("/h", { state: { patient } });
   };
 
   return (

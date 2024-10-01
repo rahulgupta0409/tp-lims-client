@@ -7,14 +7,14 @@ import { setCookie } from "../../utils/cookies";
 import Heading from "../../components/headings/Heading";
 
 const Login = () => {
-  const [userName, setUserName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
   const handleOnChange = (param, value) => {
-    if (param === "userName") {
-      setUserName(value);
+    if (param === "username") {
+      setUsername(value);
     }
     if (param === "password") {
       setPassword(value);
@@ -45,7 +45,7 @@ const Login = () => {
       const response = await fetch("http://localhost:8091/v1/auth/signin", {
         method: "POST",
         body: JSON.stringify({
-          userName,
+          username,
           password,
         }),
         headers: {
@@ -64,7 +64,7 @@ const Login = () => {
         localStorage.setItem("loginSuccess", "true");
         setCookie("__rT", data.refreshToken, { expires: 7 });
         setCookie("user", data.user.fullName);
-        setUserName("");
+        setUsername("");
         setPassword("");
         navigate("/home");
       } else {
@@ -92,11 +92,11 @@ const Login = () => {
             <div className="label">Username</div>
             <input
               className="input"
-              name="userName"
+              name="username"
               type="text"
               placeholder="Enter username..."
               onChange={(e) => {
-                handleOnChange("userName", e.target.value);
+                handleOnChange("username", e.target.value);
               }}
             />
           </div>
