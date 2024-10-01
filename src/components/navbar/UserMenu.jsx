@@ -52,7 +52,7 @@ const UserMenu = ({ currentUser }) => {
           <AiOutlineMenu />
           <div className="hidden md:block">
             {currentUser ? (
-              <Avatar userName={currentUser} />
+              <Avatar username={currentUser} />
             ) : (
               <img
                 className="rounded-full"

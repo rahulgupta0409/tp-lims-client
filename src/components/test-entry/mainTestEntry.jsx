@@ -32,14 +32,19 @@ const MainTestEntry = () => {
         <TestHeader />
 
         <div className="content">
-          <MajorTestReport />
+          {/* <MajorTestReport />
           <TestEntry />
           <TestEntry />
           <TestEntry />
           <TestEntry />
           <MajorTestReport />
           <TestEntry />
-          <TestEntry />
+          <TestEntry /> */}
+          {patient.tests.map((test) => {
+            if (test.isMajorLabTest) {
+              <MajorTestReport majorTestName={test.testName} />;
+            }
+          })}
         </div>
       </div>
     </>
