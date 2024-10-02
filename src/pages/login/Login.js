@@ -5,10 +5,14 @@ import { Button } from "@mui/material";
 import useFetch from "../../custom-hooks/useFetch";
 import { setCookie } from "../../utils/cookies";
 import Heading from "../../components/headings/Heading";
+import { useDispatch } from "react-redux";
+import { loginSuccessAsync } from "../../actions/authAction";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -23,6 +27,14 @@ const Login = () => {
 
   const handleOnClick = async (e) => {
     e.preventDefault();
+
+    const data = { username, password };
+
+    dispatch(loginSuccessAsync(data, () => {
+      setUsername("");
+      setPassword("");
+      navigate("/home");
+    }))
 
     // const { data, error, loading } = useFetch(
     //   "http://localhost:8091/v1/auth/signin",
@@ -41,117 +53,118 @@ const Login = () => {
     //   navigate("/home");
     // }
 
-    try {
-      const response = await fetch("http://localhost:8091/v1/auth/signin", {
-        method: "POST",
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+    //   try {
+    //     const response = await fetch("http://localhost:8091/v1/auth/signin", {
+    //       method: "POST",
+    //       body: JSON.stringify({
+    //         username,
+    //         password,
+    //       }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
 
-      const data = await response.json();
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! Status: ${response.status}`);
+    //     }
 
-      if (data?.token) {
-        localStorage.setItem("token", data.token, { expires: 1 });
-        localStorage.setItem("loginSuccess", "true");
-        setCookie("__rT", data.refreshToken, { expires: 7 });
-        setCookie("user", data.user.fullName);
-        setUsername("");
-        setPassword("");
-        navigate("/home");
-      } else {
-        console.error("Login failed: No token received");
-      }
-      // if (response.status != 200) {
-      //   return <div>"error"</div>;
-      // }
-    } catch (error) {
-      console.error("Error during fetch:", error);
-    }
-  };
+    //     const data = await response.json();
 
-  return (
-    <div>
-      <div className="login-container">
-        <div className="login-form-container">
-          {/* <h2 className="h2">LOGIN</h2> */}
-          <Heading
-            title="Welcome Back"
-            subtitle="Login to your Account!"
-            center
-          />
-          <div className="row">
-            <div className="label">Username</div>
-            <input
-              className="input"
-              name="username"
-              type="text"
-              placeholder="Enter username..."
-              onChange={(e) => {
-                handleOnChange("username", e.target.value);
-              }}
+    //     if (data?.token) {
+    //       localStorage.setItem("token", data.token, { expires: 1 });
+    //       localStorage.setItem("loginSuccess", "true");
+    //       setCookie("__rT", data.refreshToken, { expires: 7 });
+    //       setCookie("user", data.user.fullName);
+    //       setUsername("");
+    //       setPassword("");
+    //       navigate("/home");
+    //     } else {
+    //       console.error("Login failed: No token received");
+    //     }
+    //     // if (response.status != 200) {
+    //     //   return <div>"error"</div>;
+    //     // }
+    //   } catch (error) {
+    //     console.error("Error during fetch:", error);
+    //   }
+    };
+
+    return (
+      <div>
+        <div className="login-container">
+          <div className="login-form-container">
+            {/* <h2 className="h2">LOGIN</h2> */}
+            <Heading
+              title="Welcome Back"
+              subtitle="Login to your Account!"
+              center
             />
-          </div>
-          <div className="row">
-            <div className="label">Password</div>
-            <input
-              className="input"
-              name="password"
-              type="text"
-              placeholder="Enter password..."
-              onChange={(e) => {
-                handleOnChange("password", e.target.value);
-              }}
-            />
-          </div>
-          <div className="row">
-            <button
-              className="submin-login"
-              type="submit"
-              onClick={handleOnClick}
-            >
-              LOGIN
-            </button>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "20px",
-              width: "100%",
-            }}
-          >
+            <div className="row">
+              <div className="label">Username</div>
+              <input
+                className="input"
+                name="username"
+                type="text"
+                placeholder="Enter username..."
+                onChange={(e) => {
+                  handleOnChange("username", e.target.value);
+                }}
+              />
+            </div>
+            <div className="row">
+              <div className="label">Password</div>
+              <input
+                className="input"
+                name="password"
+                type="text"
+                placeholder="Enter password..."
+                onChange={(e) => {
+                  handleOnChange("password", e.target.value);
+                }}
+              />
+            </div>
+            <div className="row">
+              <button
+                className="submin-login"
+                type="submit"
+                onClick={handleOnClick}
+              >
+                LOGIN
+              </button>
+            </div>
             <div
-              style={{ fontFamily: "Product Sans" }}
-            >{`Don't have account?`}</div>
-            <Button
-              sx={{
-                background: "none",
+              style={{
+                display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                fontFamily: "Product Sans",
-                fontSize: "small",
-                borderRadius: "30px",
-                fontVariant: "normal",
+                marginTop: "20px",
+                width: "100%",
               }}
-              onClick={() => navigate("/signup")}
             >
-              Sign up
-            </Button>
+              <div
+                style={{ fontFamily: "Product Sans" }}
+              >{`Don't have account?`}</div>
+              <Button
+                sx={{
+                  background: "none",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  fontFamily: "Product Sans",
+                  fontSize: "small",
+                  borderRadius: "30px",
+                  fontVariant: "normal",
+                }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign up
+              </Button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
-export default Login;
+  export default Login;
