@@ -42,7 +42,11 @@ const MainTestEntry = () => {
           <TestEntry /> */}
           {patient.tests.map((test) => {
             if (test.isMajorLabTest) {
-              <MajorTestReport majorTestName={test.testName} />;
+              return (
+                <MajorTestReport majorTestName={test.testName} {...test} />
+              );
+            } else {
+              return <TestEntry {...test} />;
             }
           })}
         </div>
