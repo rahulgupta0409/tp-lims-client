@@ -5,6 +5,10 @@ import { Button } from "@mui/material";
 import useFetch from "../../custom-hooks/useFetch";
 import { setCookie } from "../../utils/cookies";
 import Heading from "../../components/headings/Heading";
+import Input from "../../components/input/Input";
+import CustomButton from "../../components/buttons/button";
+import LoginContainer from "../../components/container/loginContainer";
+import Container from "../../components/container/Container";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -22,25 +26,7 @@ const Login = () => {
   };
 
   const handleOnClick = async (e) => {
-    e.preventDefault();
-
-    // const { data, error, loading } = useFetch(
-    //   "http://localhost:8091/v1/auth/signin",
-    //   "POST",
-    //   {
-    //     userName,
-    //     password,
-    //   }
-    // );
-
-    // if (data != null) {
-    //   localStorage.setItem("token", data.token);
-    //   localStorage.setItem("loginSuccess", "true");
-    //   setUserName("");
-    //   setPassword("");
-    //   navigate("/home");
-    // }
-
+    // e.preventDefault();
     try {
       const response = await fetch("http://localhost:8091/v1/auth/signin", {
         method: "POST",
@@ -79,48 +65,35 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <div className="login-container">
-        <div className="login-form-container">
-          {/* <h2 className="h2">LOGIN</h2> */}
+    <>
+      <Container>
+        <LoginContainer>
           <Heading
             title="Welcome Back"
             subtitle="Login to your Account!"
             center
           />
-          <div className="row">
-            <div className="label">Username</div>
-            <input
-              className="input"
-              name="username"
-              type="text"
-              placeholder="Username"
-              onChange={(e) => {
-                handleOnChange("username", e.target.value);
-              }}
-            />
-          </div>
-          <div className="row">
-            <div className="label">Password</div>
-            <input
-              className="input"
-              name="password"
-              type="text"
-              placeholder="Password"
-              onChange={(e) => {
-                handleOnChange("password", e.target.value);
-              }}
-            />
-          </div>
-          <div className="row">
-            <button
-              className="submin-login"
-              type="submit"
-              onClick={handleOnClick}
-            >
-              LOGIN
-            </button>
-          </div>
+
+          <Input
+            label="UserName"
+            name="username"
+            type="text"
+            placeholder="Username"
+            onChange={(e) => {
+              handleOnChange("username", e.target.value);
+            }}
+          />
+
+          <Input
+            label="Password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            onChange={(e) => {
+              handleOnChange("password", e.target.value);
+            }}
+          />
+          <CustomButton type="submit" label="LOGIN" onClick={handleOnClick} />
           <div
             style={{
               display: "flex",
@@ -148,9 +121,9 @@ const Login = () => {
               Sign up
             </Button>
           </div>
-        </div>
-      </div>
-    </div>
+        </LoginContainer>
+      </Container>
+    </>
   );
 };
 
