@@ -27,6 +27,7 @@ import TestEntry from "./components/test-entry/testEntry";
 import MajorTestReport from "./components/test-entry/majorTestReport";
 import MainTestEntry from "./components/test-entry/mainTestEntry";
 import ErrorBoundary from "./components/errorBoundary";
+import SignupInput from "./components/input/signupInput";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -37,7 +38,7 @@ function App() {
           <div>
             {/* <Navbars /> */}
             <BackToTopButton />
-          <Routes>
+            <Routes>
               <Route path="/signup" element={<Signup />}></Route>
               <Route path="/" element={<Login />}></Route>
               <Route path="/organization" element={<Organization />}></Route>
@@ -46,22 +47,23 @@ function App() {
               <Route path="/helper" element={<Majortests />}></Route>
               <Route path="/minortests" element={<MinorTestMainPage />}></Route>
               <Route path="/table" element={<Tables />}></Route>
-              <Route path="/patient" element={<PatientEntry />}></Route>
+              <Route path="/patient" element={<Patients />}></Route>
               <Route path="*" element={<Navigate to="/" replace />}></Route>
-              <Route path="/help" element={<Patients />}></Route>
-            <Route path="/h" element={<MainTestEntry />}></Route>
-            <Route
-              path="/rahul"
-              element={
-                // <Modal
-                //   isOpen={true}
-                //   title="Login"
-                //   actionLabel="Continue"
-                //   onClose={() => console.log("close")}
-                // />
-                <MainDiv />
-              }
-            ></Route>
+              <Route path="/help" element={<PatientEntry />}></Route>
+              <Route path="/h" element={<MainTestEntry />}></Route>
+              <Route path="/signupinputtest" element={<SignupInput />}></Route>
+              <Route
+                path="/rahul"
+                element={
+                  // <Modal
+                  //   isOpen={true}
+                  //   title="Login"
+                  //   actionLabel="Continue"
+                  //   onClose={() => console.log("close")}
+                  // />
+                  <MainDiv />
+                }
+              ></Route>
             </Routes>
           </div>
         </Router>

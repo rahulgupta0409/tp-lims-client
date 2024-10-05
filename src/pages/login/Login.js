@@ -94,7 +94,7 @@ const Login = () => {
               className="input"
               name="username"
               type="text"
-              placeholder="Enter username..."
+              placeholder="Username"
               onChange={(e) => {
                 handleOnChange("username", e.target.value);
               }}
@@ -106,7 +106,7 @@ const Login = () => {
               className="input"
               name="password"
               type="text"
-              placeholder="Enter password..."
+              placeholder="Password"
               onChange={(e) => {
                 handleOnChange("password", e.target.value);
               }}
