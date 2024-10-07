@@ -28,6 +28,7 @@ import MajorTestReport from "./components/test-entry/majorTestReport";
 import MainTestEntry from "./components/test-entry/mainTestEntry";
 import ErrorBoundary from "./components/errorBoundary";
 import SignupInput from "./components/input/signupInput";
+import Loader from "./components/loader/loader";
 
 function App() {
   // const excludedRoutes = ["/admin/dashboard", "/admin/products"];
@@ -61,7 +62,7 @@ function App() {
                   //   actionLabel="Continue"
                   //   onClose={() => console.log("close")}
                   // />
-                  <MainDiv />
+                  <Loader />
                 }
               ></Route>
             </Routes>
