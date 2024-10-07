@@ -8,6 +8,7 @@ import Modal from "../../components/modals/Modals";
 import LoginContainer from "../../components/container/loginContainer";
 import Input from "../../components/input/Input";
 import CustomButton from "../../components/buttons/button";
+import Loader from "../../components/loader/loader";
 
 const Signup = () => {
   const [emailId, setEmailId] = useState("");
@@ -35,6 +36,7 @@ const Signup = () => {
         },
       }
     );
+
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
@@ -130,7 +132,7 @@ const Signup = () => {
   };
 
   const handleOnClick = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     let data;
     const response = await fetch("http://localhost:8091/v1/auth/signup", {
       method: "POST",
@@ -145,6 +147,7 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
     });
+
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
