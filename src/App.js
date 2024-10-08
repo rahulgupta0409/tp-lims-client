@@ -27,6 +27,8 @@ import TestEntry from "./components/test-entry/testEntry";
 import MajorTestReport from "./components/test-entry/majorTestReport";
 import MainTestEntry from "./components/test-entry/mainTestEntry";
 import ErrorBoundary from "./components/errorBoundary";
+import { Provider } from "react-redux";
+import store from "./store";
 import SignupInput from "./components/input/signupInput";
 import Loader from "./components/loader/loader";
 
@@ -35,6 +37,7 @@ function App() {
   return (
     <div style={{ width: "100%", height: "100%" }}>
       <ErrorBoundary>
+        <Provider store={store}>
         <Router>
           <div>
             {/* <Navbars /> */}
@@ -68,6 +71,7 @@ function App() {
             </Routes>
           </div>
         </Router>
+        </Provider>
       </ErrorBoundary>
     </div>
   );

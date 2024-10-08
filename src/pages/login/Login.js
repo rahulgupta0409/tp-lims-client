@@ -5,6 +5,8 @@ import { Button } from "@mui/material";
 import useFetch from "../../custom-hooks/useFetch";
 import { setCookie } from "../../utils/cookies";
 import Heading from "../../components/headings/Heading";
+import { useDispatch } from "react-redux";
+import { loginSuccessAsync } from "../../actions/authAction";
 import Input from "../../components/input/Input";
 import CustomButton from "../../components/buttons/button";
 import LoginContainer from "../../components/container/loginContainer";
@@ -13,6 +15,8 @@ import Container from "../../components/container/Container";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -27,42 +31,51 @@ const Login = () => {
 
   const handleOnClick = async (e) => {
     // e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8091/v1/auth/signin", {
-        method: "POST",
-        body: JSON.stringify({
-          username,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+    const data = { username, password };
 
-      const data = await response.json();
+    dispatch(loginSuccessAsync(data, () => {
+      setUsername("");
+      setPassword("");
+      navigate("/home");
+    }))
 
-      if (data?.token) {
-        localStorage.setItem("token", data.token, { expires: 1 });
-        localStorage.setItem("loginSuccess", "true");
-        setCookie("__rT", data.refreshToken, { expires: 7 });
-        setCookie("user", data.user.fullName);
-        setUsername("");
-        setPassword("");
-        navigate("/home");
-      } else {
-        console.error("Login failed: No token received");
-      }
-      // if (response.status != 200) {
-      //   return <div>"error"</div>;
-      // }
-    } catch (error) {
-      console.error("Error during fetch:", error);
-    }
-  };
+    //   try {
+    //     const response = await fetch("http://localhost:8091/v1/auth/signin", {
+    //       method: "POST",
+    //       body: JSON.stringify({
+    //         username,
+    //         password,
+    //       }),
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //     });
+
+    //     if (!response.ok) {
+    //       throw new Error(`HTTP error! Status: ${response.status}`);
+    //     }
+
+    //     const data = await response.json();
+
+    //     if (data?.token) {
+    //       localStorage.setItem("token", data.token, { expires: 1 });
+    //       localStorage.setItem("loginSuccess", "true");
+    //       setCookie("__rT", data.refreshToken, { expires: 7 });
+    //       setCookie("user", data.user.fullName);
+    //       setUsername("");
+    //       setPassword("");
+    //       navigate("/home");
+    //     } else {
+    //       console.error("Login failed: No token received");
+    //     }
+    //     // if (response.status != 200) {
+    //     //   return <div>"error"</div>;
+    //     // }
+    //   } catch (error) {
+    //     console.error("Error during fetch:", error);
+    //   }
+    };
 
   return (
     <>
@@ -127,4 +140,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+  export default Login;

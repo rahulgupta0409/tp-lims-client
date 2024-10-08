@@ -9,11 +9,14 @@ import Navbars from "../navbar/Nav";
 import SimpleBar from "simplebar-react";
 import { GET_ALL_MAJOR_LAB_TESTS } from "../../apis/MajorTestAPI";
 import Container from "../container/Container";
+import { useDispatch } from "react-redux";
+import { getAllMajorTest } from "../../actions/majorTestAction";
 ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 const GridExample = (props) => {
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
+  const dispatch = useDispatch();
   const [rowData, setRowData] = useState();
   const [columnDefs, setColumnDefs] = useState([
     { field: "majorTestName", filter: "agTextColumnFilter", minWidth: 170 },
@@ -52,24 +55,27 @@ const GridExample = (props) => {
   }, []);
 
   const fetchMinnorLabTests = async () => {
-    const data = await GET_ALL_MAJOR_LAB_TESTS();
-    if (data) {
-      setRowData(
-        data.map((dat, idx) => {
-          console.log("data", dat);
-          let arr = "";
-          Object.keys(dat).forEach((key) => {
-            if (key === "minorLabTestList") {
-              const dd = dat["minorLabTestList"];
-              dd.forEach((d) => {
-                arr = d.testName && `${arr} ${d.testName},`;
+    dispatch(
+      getAllMajorTest((data) => {
+        if (data) {
+          setRowData(
+            data.map((dat, idx) => {
+              console.log("data", dat);
+              let arr = "";
+              Object.keys(dat).forEach((key) => {
+                if (key === "minorLabTestList") {
+                  const dd = dat["minorLabTestList"];
+                  dd.forEach((d) => {
+                    arr = d.testName && `${arr} ${d.testName},`;
+                  });
+                }
               });
-            }
-          });
-          return { ...dat, minorLabTestList: arr, rowIdx: idx };
-        })
-      );
-    }
+              return { ...dat, minorLabTestList: arr, rowIdx: idx };
+            })
+          );
+        }
+      })
+    );
   };
 
   const onGridReady = useCallback((params) => {
