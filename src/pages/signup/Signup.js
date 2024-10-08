@@ -5,6 +5,10 @@ import { Button, LinearProgress, LinearProgressWithLabel } from "@mui/material";
 import Logo from "../../images/Tilak_Pathology_PNG_Logo-removebg.png";
 import Heading from "../../components/headings/Heading";
 import Modal from "../../components/modals/Modals";
+import LoginContainer from "../../components/container/loginContainer";
+import Input from "../../components/input/Input";
+import CustomButton from "../../components/buttons/button";
+import Loader from "../../components/loader/loader";
 
 const Signup = () => {
   const [emailId, setEmailId] = useState("");
@@ -32,6 +36,7 @@ const Signup = () => {
         },
       }
     );
+
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
@@ -127,7 +132,7 @@ const Signup = () => {
   };
 
   const handleOnClick = async (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     let data;
     const response = await fetch("http://localhost:8091/v1/auth/signup", {
       method: "POST",
@@ -142,6 +147,7 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
     });
+
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
@@ -161,6 +167,7 @@ const Signup = () => {
       <LinearProgress variant="determinate" value={62} />
       <div className="signup-container">
         <div className="signup-form-container">
+          {/* <LoginContainer> */}
           <div style={{ display: "flex", gap: "4px" }}>
             <Heading
               title="Welcome to Tilak"
@@ -177,85 +184,61 @@ const Signup = () => {
               alt="Logo"
             />
           </div>
-          <div className="signup-row">
-            <div className="signup-label">Email</div>
-            <input
-              className="signup-input"
-              name="emailId"
-              type="email"
-              placeholder="Enter email..."
-              value={emailId}
-              onChange={(e) => {
-                handleOnChange("emailId", e.target.value);
-              }}
-            />
-          </div>
-          <div className="signup-row">
-            <div className="signup-label">Username</div>
-            <input
-              className="signup-input"
-              name="username"
-              type="text"
-              placeholder="Enter username..."
-              value={username}
-              onChange={(e) => {
-                handleOnChange("username", e.target.value);
-              }}
-            />
-          </div>
-          <div className="signup-row">
-            <div className="signup-label">Full Name</div>
-            <input
-              className="signup-input"
-              name="fullName"
-              type="text"
-              placeholder="Enter name..."
-              value={fullName}
-              onChange={(e) => {
-                handleOnChange("fullName", e.target.value);
-              }}
-            />
-          </div>
-          <div className="signup-row">
-            <div className="signup-label">Password</div>
-            <input
-              className="signup-input"
-              name="password"
-              type="text"
-              placeholder="Choose a password..."
-              value={password}
-              onChange={(e) => {
-                handleOnChange("password", e.target.value);
-              }}
-            />
-          </div>
-          <div className="signup-row">
-            <div className="signup-label">Confirm Password</div>
-            <input
-              className="signup-input"
-              name="confirmPassword"
-              type="text"
-              placeholder="Confirm Password..."
-              value={confirmPassword}
-              onChange={(e) => {
-                handleOnChange("confirmPassword", e.target.value);
-              }}
-            />
-          </div>
-          <div className="signup-row">
-            <Button className="submin-signup" onClick={handleOnClick}>
-              SIGNUP
-            </Button>
-          </div>
-          {/* <div
-          style={{
-            display: "flex",
-            justifyContent: "start",
-            marginTop: "10px",
-          }}
-        >
-          <Button onClick={() => navigate("/")}>Already have an account</Button>
-        </div> */}
+
+          <Input
+            label="Email"
+            name="emailId"
+            type="email"
+            placeholder="Email"
+            value={emailId}
+            onChange={(e) => {
+              handleOnChange("emailId", e.target.value);
+            }}
+          />
+          <Input
+            label="Username"
+            name="username"
+            type="text"
+            value={username}
+            placeholder="Username"
+            onChange={(e) => {
+              handleOnChange("username", e.target.value);
+            }}
+          />
+          <Input
+            label="Full Name"
+            name="fullName"
+            type="text"
+            placeholder="Full Name"
+            value={fullName}
+            onChange={(e) => {
+              handleOnChange("fullName", e.target.value);
+            }}
+          />
+
+          <Input
+            label="Password"
+            name="password"
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => {
+              handleOnChange("password", e.target.value);
+            }}
+          />
+
+          <Input
+            label="Confirm Password"
+            name="confirmPassword"
+            type="text"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => {
+              handleOnChange("confirmPassword", e.target.value);
+            }}
+          />
+          <CustomButton type="submit" label="SIGNUP" onClick={handleOnClick} />
+
           <div
             style={{
               display: "flex",
@@ -285,6 +268,7 @@ const Signup = () => {
               Login
             </button>
           </div>
+          {/* </LoginContainer> */}
         </div>
       </div>
     </>

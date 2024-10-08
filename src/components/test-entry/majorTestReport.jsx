@@ -14,9 +14,7 @@ const MajorTestReport = ({
       <Heading title={`${majorTestName}`} />
       {/* <Divider orientation="horizontal" variant="full-width" /> */}
       {isMajorLabTest &&
-        minorLabTestList.map((minorLabTest) => {
-          <TestEntry name={minorLabTest.testName} />;
-        })}
+        minorLabTestList.map((minorLabTest) => <TestEntry {...minorLabTest} />)}
     </div>
   );
 };

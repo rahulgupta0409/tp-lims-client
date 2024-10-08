@@ -3,9 +3,30 @@
 }
 
 .navbar-container {
-  // position: sticky;
-  position: relative;
+  position: sticky;
+  // position: relative;
   top: 0;
   z-index: 999;
+  margin-bottom: 5px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
   // background-color: aliceblue;
+
+  // position: sticky;
+  // top: 0;
+  // z-index: 20;
+  // margin-bottom: 1.25rem; // Tailwind's mb-5 (1.25rem = 20px)
+  // display: flex;
+  // justify-content: center;
+  // gap: 2.5rem; // Tailwind's gap-10 (2.5rem = 40px)
+  // border: 1px solid; // Adjust border styles as needed
+  // background-color: white; // Tailwind's bg-white
+  // padding: 0.5rem; // Tailwind's p-2 (0.5rem = 8px)
+
+  // @media (min-width: 768px) {
+  //   // md: breakpoint
+  //   align-items: center; // Tailwind's md:items-center
+  //   justify-content: space-between; // Tailwind's md:justify-between
+  //   padding-left: 9rem; // Tailwind's md:px-36 (9rem = 144px)
+  //   padding-right: 9rem; // Same as above
+  // }
 }

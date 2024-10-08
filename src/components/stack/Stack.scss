@@ -68,3 +68,8 @@
     }
   }
 }
+
+.custom-stack:hover {
+  background: linear-gradient(90deg, #f5f7fa 0%, #94b3e1 100%);
+  transform: translateY(-0.1vmax);
+}
