@@ -156,8 +156,6 @@ const Signup = () => {
     setIsOtpModal(true);
   };
 
-  console.log("userData", userData);
-
   return (
     <>
       <LinearProgress variant="determinate" value={62} />
