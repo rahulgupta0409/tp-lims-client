@@ -1,25 +1,25 @@
 import { requestHelper } from "../requestHelper";
 import { API_URL, headers } from "../utils/constants";
 import { getCookie } from "../utils/cookies";
-import { ADD_MAJOR_LAB_TEST, SET_MAJOR_TESTS } from "./actionTypes";
+import { ADD_MINOR_LAB_TEST, SET_MINOR_TESTS } from "./actionTypes";
 
-const setMajorTest = (payload) => {
+const setMinorTest = (payload) => {
   return {
-    type: SET_MAJOR_TESTS,
+    type: SET_MINOR_TESTS,
     payload: payload,
   };
 };
 
-export const getAllMajorTest = (callback) => {
+export const getAllMinorTest = (callback) => {
   return (dispatch, getState) =>
     requestHelper.getRequest({
-      url: `${API_URL}/majortest/getAllMajorTests`,
+      url: `${API_URL}/minortest/getAllMinorTests`,
       headers: new Headers({
         ...headers,
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       }),
       onSuccess: (res) => {
-        dispatch(setMajorTest(res));
+        dispatch(setMinorTest(res));
         callback && callback(res);
       },
       onError: (res) => {
@@ -28,25 +28,25 @@ export const getAllMajorTest = (callback) => {
     });
 };
 
-const updateMajorLabTestList = (payload) => {
+const updateMinorLabTestList = (payload) => {
   return {
-    type: ADD_MAJOR_LAB_TEST,
+    type: ADD_MINOR_LAB_TEST,
     payload: payload,
   };
 }
 
-export const addMajorLabTest = (data, callback) => {
+export const addMinorLabTest = (data, callback) => {
   const createdBy = getCookie("user");
   return (dispatch) =>
     requestHelper.postRequest({
-      url: `${API_URL}/majortest/addMajorLabTest`,
+      url: `${API_URL}/minortest/getAllMinorTests`,
       headers: new Headers({
         ...headers,
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       }),
       body: JSON.stringify({ ...data, createdBy }),
       onSuccess: (res) => {
-        dispatch(updateMajorLabTestList(res));
+        dispatch(updateMinorLabTestList(res));
         callback && callback(res);
       },
       onError: (res) => {
