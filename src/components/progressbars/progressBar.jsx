@@ -9,14 +9,14 @@ import "./progressBar.scss";
 
 const PatientProgressBar = ({ progress }) => {
   const [inProgress, setInProgress] = useState(false);
-  const [reporting, setsetReporting] = useState(false);
+  const [reporting, setReporting] = useState(false);
   const [doctorApproval, setDoctorApproval] = useState(false);
 
   const handleInProgressClick = () => {
     setInProgress(!inProgress);
   };
   const handleReportingClick = () => {
-    setsetReporting(!reporting);
+    setReporting(!reporting);
   };
   const handleDoctorApprovalClick = () => {
     setDoctorApproval(!doctorApproval);

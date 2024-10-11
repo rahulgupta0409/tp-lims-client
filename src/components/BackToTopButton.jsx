@@ -1,9 +1,10 @@
 import { Tooltip } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { FaArrowCircleUp } from "react-icons/fa";
 
 const BackToTopButton = () => {
   const [backToTopButton, setBackToTopButton] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -21,28 +22,37 @@ const BackToTopButton = () => {
       behavior: "smooth",
     });
   };
+
+  const buttonStyle = {
+    position: "fixed",
+    width: "4vmax",
+    height: "4vmax",
+    right: "2vmax",
+    bottom: "2vmax",
+    fontSize: "50vmax",
+    cursor: "pointer",
+    zIndex: "999",
+    borderRadius: "5vmax",
+    backgroundColor: isHovered ? "lightGrey" : "white",
+    transition: "background-color 0.3s",
+    transform: isHovered ? "translateY(-0.5vmax)" : "",
+  };
+
   return (
-    <>
-      {backToTopButton && (
-        <Tooltip title="Click here to go to the top">
+    <Fragment>
+      {
+        backToTopButton && (
+          // <Tooltip title="Click here to go to the top">
           <FaArrowCircleUp
             onClick={scrollUp}
-            style={{
-              position: "fixed",
-              width: "50px",
-              height: "50px",
-              right: "0",
-              bottom: "50px",
-              fontSize: "50px",
-              cursor: "pointer",
-              zIndex: "999",
-              borderRadius: "100px",
-              backgroundColor: "white",
-            }}
+            style={buttonStyle}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           />
-        </Tooltip>
-      )}
-    </>
+        )
+        // </Tooltip>
+      }
+    </Fragment>
   );
 };
 

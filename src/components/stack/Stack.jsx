@@ -51,8 +51,8 @@ const Stack = ({
           describeChild
           placement="top"
           arrow
-          title={`${value}% completed`}
-          enterDelay={1000}
+          title={value ? `${value}% completed` : ``}
+          enterDelay={900}
         >
           <LinearProgress
             color={
