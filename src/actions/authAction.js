@@ -1,7 +1,7 @@
 import { requestHelper } from "../requestHelper";
 import { API_URL, headers } from "../utils/constants";
 import { setCookie } from "../utils/cookies";
-import { LOGIN_SUCCESS } from "./actionTypes";
+import { LOGIN_FAIL, LOGIN_REQUEST, LOGIN_SUCCESS } from "./actionTypes";
 
 const setLoginSession = (payload) => {
   return {
@@ -10,8 +10,9 @@ const setLoginSession = (payload) => {
   };
 };
 
-export const loginSuccessAsync = (data, callback) => {
-  return (dispatch) =>
+export const loginSuccessAsync = (data, callback) => async (dispatch) => {
+  try {
+    dispatch({ type: LOGIN_REQUEST });
     requestHelper.postRequest({
       url: `${API_URL}/auth/signin`,
       headers: new Headers(headers),
@@ -30,4 +31,7 @@ export const loginSuccessAsync = (data, callback) => {
         callback && callback(res);
       },
     });
+  } catch (error) {
+    dispatch({ type: LOGIN_FAIL, payload: error.response.data.message });
+  }
 };
