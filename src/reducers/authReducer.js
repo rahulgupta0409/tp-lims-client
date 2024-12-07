@@ -3,6 +3,7 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   SET_LOGIN_TOKEN,
+  LOADING,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -32,6 +33,11 @@ export default function authReducer(state = initialState, action) {
         isAuthenticated: false,
         user: null,
         error: action.payload,
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: action.payload,
       };
     default:
       return state;
