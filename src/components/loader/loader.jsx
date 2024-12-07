@@ -4,7 +4,11 @@ import "./loader.scss";
 const Loader = () => {
   return (
     <Fragment>
-      <div className="loading">
+      <div className="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
         <div></div>
       </div>
     </Fragment>

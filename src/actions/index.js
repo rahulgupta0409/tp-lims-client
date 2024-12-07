@@ -1,21 +1,15 @@
-export {
-    loginSuccessAsync
-} from './authAction';
+export { loginSuccessAsync } from "./authAction";
+
+export { getAllDoctors } from "./doctorAction";
+
+export { getAllMajorTest, addMajorLabTest } from "./majorTestAction";
+
+export { getAllMinorTest, addMinorLabTest } from "./minorTestAction";
+
+export { getAllOrganization } from "./organizationAction";
 
 export {
-    getAllDoctors
-} from './doctorAction';
-
-export {
-    getAllMajorTest,
-    addMajorLabTest
-} from './majorTestAction';
-
-export {
-    getAllMinorTest,
-    addMinorLabTest
-} from './minorTestAction';
-
-export {
-    getAllOrganization
-} from './organizationAction';
+  updatePatientTestDetails,
+  getAllPatientsListByDate,
+  setPatientTestDetail,
+} from "./patientAction";

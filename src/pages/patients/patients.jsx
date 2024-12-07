@@ -29,6 +29,8 @@ import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
 import { deepOrange, deepPurple } from "@mui/material/colors";
 import { convertTimestampToDate } from "../../utils/date/dateConvertor";
 import MainTestEntry from "../../components/test-entry/mainTestEntry";
+import { useDispatch } from "react-redux";
+import { getAllPatientsListByDate } from "../../actions";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -44,6 +46,7 @@ const Patients = () => {
   const [showModal, setShowModal] = useState(false);
   const [query, setQuery] = useState("");
   const [patientInfo, setPatientInfo] = useState(false);
+  const dispatch = useDispatch();
 
   const reverseString = (str) => [...str].reverse().join("");
 
@@ -88,16 +91,16 @@ const Patients = () => {
     const asyncFn = async () => {
       if (query.length === 0) {
         try {
-          const allPatients = await GET_ALL_PATIENTS_BY_DATE_RANGE(
-            dateTimeValue[0]?.startDate,
-            dateTimeValue[0]?.endDate
+          dispatch(
+            getAllPatientsListByDate(
+              dateTimeValue[0]?.startDate,
+              dateTimeValue[0]?.endDate,
+              async (res) => {
+                console.log("res", res);
+                await setPatients(res);
+              }
+            )
           );
-          if (allPatients != null) {
-            console.log(allPatients);
-            setPatients(allPatients);
-            const Ids = allPatients.map((patient) => patient.patientId);
-            setPatientIds(Ids);
-          }
         } catch (error) {
           console.error("Error fetching minor tests:", error);
         }

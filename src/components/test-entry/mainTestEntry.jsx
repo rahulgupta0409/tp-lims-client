@@ -10,7 +10,8 @@ import { useLocation } from "react-router-dom";
 const MainTestEntry = () => {
   const location = useLocation();
   const { patient } = location.state || {};
-  console.log("patient", patient);
+
+  console.log("patient", patient.patientId);
   return (
     <>
       <Navbars />
@@ -32,18 +33,14 @@ const MainTestEntry = () => {
         <TestHeader />
 
         <div className="content">
-          {/* <MajorTestReport />
-          <TestEntry />
-          <TestEntry />
-          <TestEntry />
-          <TestEntry />
-          <MajorTestReport />
-          <TestEntry />
-          <TestEntry /> */}
           {patient.tests.map((test) => {
             if (test.isMajorLabTest) {
               return (
-                <MajorTestReport majorTestName={test.testName} {...test} />
+                <MajorTestReport
+                  majorTestName={test.testName}
+                  {...test}
+                  patientId={patient?.patientId}
+                />
               );
             } else {
               return <TestEntry {...test} />;

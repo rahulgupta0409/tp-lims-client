@@ -13,12 +13,14 @@ const TestEntry = ({
   onDragStart,
   onClick,
   isAdmin = false,
+  patientId,
+  testId,
 }) => {
   return (
     <div className="test-entry-container" key={idx}>
       <div className="test-entry-testName">{testName}</div>
       <div className="test-entry-value">
-        <TestInput initialState={value} />
+        <TestInput initialState={value} patientId={patientId} testId={testId} />
       </div>
       {isAdmin === false ? (
         <>
