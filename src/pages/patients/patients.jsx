@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
@@ -11,6 +11,8 @@ import Stack from "../../components/stack/Stack";
 import Navbars from "../../components/navbar/Nav";
 import "./patients.scss";
 import {
+  GET_ALL_PATIENTS,
+  GET_ALL_PATIENTS_BY_DATE_RANGE,
   GET_ALL_PATIENTS_BY_SEARCH,
 } from "../../apis/PatientAPI";
 import { Modal } from "react-bootstrap";
@@ -18,17 +20,17 @@ import { BsCalendar2DateFill } from "react-icons/bs";
 // import Avatar from "../../components/avatar/Avatar";
 import Search from "../../components/search/search";
 import Heading from "../../components/headings/Heading";
-import { Avatar, Tooltip } from "@mui/material";
-// import { GrInProgress } from "react-icons/gr";
-// import DoneIcon from "@mui/icons-material/Done";
-// import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { Avatar, Chip, Tooltip } from "@mui/material";
+import { GrInProgress } from "react-icons/gr";
+import DoneIcon from "@mui/icons-material/Done";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import PatientProgressBar from "../../components/progressbars/progressBar";
-// import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
+import { GET_REPORT_PROGRESS_BY_PATIENT_IDS } from "../../apis/ReportProgress";
 import { deepOrange, deepPurple } from "@mui/material/colors";
 import { convertTimestampToDate } from "../../utils/date/dateConvertor";
-// import MainTestEntry from "../../components/test-entry/mainTestEntry";
+import MainTestEntry from "../../components/test-entry/mainTestEntry";
 import { useDispatch } from "react-redux";
-import { getAllPatientsListByDate, getProgressByPatientIds } from "../../actions";
+import { getAllPatientsListByDate } from "../../actions";
 
 const Patients = () => {
   const [patients, setPatients] = useState([]);
@@ -52,13 +54,14 @@ const Patients = () => {
     const asyncFn = async () => {
       if (patientIds.length > 0) {
         try {
-          dispatch(getProgressByPatientIds(patientIds, (res) => {
-            if (res) {
-              setReportProgress(res);
-              console.log("reportProgress", reportProgress);
-            };
-          }));
-        } catch (error) { 
+          const reportProgress = await GET_REPORT_PROGRESS_BY_PATIENT_IDS(
+            patientIds
+          );
+          if (reportProgress != null) {
+            setReportProgress(reportProgress);
+            console.log("reportProgress", reportProgress);
+          }
+        } catch (error) {
           console.error("Error fetching report progress:", error);
         }
       }
@@ -221,17 +224,17 @@ const Patients = () => {
             direction="horizontal"
             preventSnapRefocus={true}
             calendarFocus="backwards"
-          //wrapperClassName="datePicker"
-          // selected={startDate}
-          // onChange={(date) => setStartDate(date)}
-          // showTimeSelect
-          // minDate={new Date()}
-          // minTime={minTime}
-          // maxTime={new Date(0, 0, 0, 17)} // 5:00pm
-          // dateFormat="dd/MM/yyyy hh:mm a"
-          // timeFormat="hh:mm a"
-          // timeIntervals={30}
-          // customInput={<CustomInput />}
+            //wrapperClassName="datePicker"
+            // selected={startDate}
+            // onChange={(date) => setStartDate(date)}
+            // showTimeSelect
+            // minDate={new Date()}
+            // minTime={minTime}
+            // maxTime={new Date(0, 0, 0, 17)} // 5:00pm
+            // dateFormat="dd/MM/yyyy hh:mm a"
+            // timeFormat="hh:mm a"
+            // timeIntervals={30}
+            // customInput={<CustomInput />}
           />
         </Modal.Body>
       </Modal>
