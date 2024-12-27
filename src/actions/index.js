@@ -13,7 +13,3 @@ export {
   getAllPatientsListByDate,
   setPatientTestDetail,
 } from "./patientAction";
-
-export {
-  getProgressByPatientIds
-} from "./reportProgress";
